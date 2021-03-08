@@ -10,8 +10,8 @@ def connect():
 	global api
 	creds = json.loads(open("./creds.json").read())
 	auth = tweepy.OAuthHandler(
-		creds['twitter']['apiKey'], 
-		creds['twitter']['secret']
+		creds['twitter']['consumerKey'], 
+		creds['twitter']['consumerSecret']
 	)
 	auth.set_access_token(
 		creds['twitter']['accessToken'], 
