@@ -6,6 +6,8 @@
 
 This project is a bot trading Bitcoin using a really simple strategy.
 
+All the decisions and positions are shared in live on a Twitter account: [@macd_bot](https://twitter.com/bot_macd).
+
 ## Algo
 
 This algorithm is really simple:
@@ -40,4 +42,4 @@ First, create a creds.json file at the root of the project. You can fill it like
 
 ## Contact me
 
-Question? Support? Advice? ➡ DM AirM4rx on Twitter.
+Question? Support? Advice? ➡ DM [AirM4rx](https://twitter.com/AirM4rx) on Twitter.

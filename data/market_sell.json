@@ -1,0 +1,71 @@
+{
+	"info": {
+		"symbol": "BTCUSDT",
+		"orderId": 5158835050,
+		"orderListId": -1,
+		"clientOrderId": "2mytrzvb8nL2syKlW2faXi",
+		"transactTime": 1615292497641,
+		"price": "0.00000000",
+		"origQty": "0.00099900",
+		"executedQty": "0.00099900",
+		"cummulativeQuoteQty": "53.99563032",
+		"status": "FILLED",
+		"timeInForce": "GTC",
+		"type": "MARKET",
+		"side": "SELL",
+		"fills": [
+			{
+				"price": "54049.68000000",
+				"qty": "0.00099900",
+				"commission": "0.05399563",
+				"commissionAsset": "USDT",
+				"tradeId": 693276876
+			}
+		]
+	},
+	"id": "5158835050",
+	"clientOrderId": "2mytrzvb8nL2syKlW2faXi",
+	"timestamp": 1615292497641,
+	"datetime": "2021-03-09T12:21:37.641Z",
+	"lastTradeTimestamp": null,
+	"symbol": "BTC/USDT",
+	"type": "market",
+	"side": "sell",
+	"price": 54049.67999999999,
+	"amount": 0.000999,
+	"cost": 53.995630320000004,
+	"average": 54049.68,
+	"filled": 0.000999,
+	"remaining": 0,
+	"status": "closed",
+	"fee": {
+		"cost": 0.05399563,
+		"currency": "USDT"
+	},
+	"trades": [
+		{
+			"info": {
+				"price": "54049.68000000",
+				"qty": "0.00099900",
+				"commission": "0.05399563",
+				"commissionAsset": "USDT",
+				"tradeId": 693276876
+			},
+			"timestamp": null,
+			"datetime": null,
+			"symbol": "BTC/USDT",
+			"id": null,
+			"order": null,
+			"type": null,
+			"side": null,
+			"takerOrMaker": null,
+			"price": 54049.68,
+			"amount": 0.000999,
+			"cost": 53.995630320000004,
+			"fee": {
+				"cost": 0.05399563,
+				"currency": "USDT"
+			}
+		}
+	]
+}
