@@ -7,6 +7,7 @@ import ccxt
 import json
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import time
 
 exchange = None
 
@@ -16,11 +17,21 @@ def connect():
 	exchange = ccxt.binance(creds['binance'])
 
 def get_balance():
-	return exchange.fetch_balance()['USDT']['total']
+	try:
+		return exchange.fetch_balance()['USDT']['total']
+	except:
+		print("❗️ Unable to fetch balance, retrying in 10 seconds")
+		time.sleep(10)
+		return get_balance()
 
 def get_live_data():
-	# Fetch latest data
-	candles = np.array(exchange.fetch_ohlcv("BTC/USDT", '1m'))
+	try:
+		# Fetch latest data
+		candles = np.array(exchange.fetch_ohlcv("BTC/USDT", '5m'))
+	except:
+		print("❗️ Unable to fetch live data, retrying in 10 seconds")
+		time.sleep(10)
+		return get_live_data()
 	
 	# Format data into a dataframe
 	data = pd.DataFrame()
@@ -75,8 +86,18 @@ def buy():
 	price = get_live_data().iloc[-1]['close']
 	amount = (balance * proportion) / price
 	amount = exchange.amount_to_precision("BTC/USDT", amount)
-	return exchange.create_market_buy_order("BTC/USDT", amount)
+	try:
+		return exchange.create_market_buy_order("BTC/USDT", amount)
+	except:
+		print("❗️ Unable to buy, retrying in 10 seconds")
+		time.sleep(10)
+		return buy()
 
 def sell():
 	balance = exchange.fetch_balance()['BTC']['total']
-	return exchange.create_market_sell_order("BTC/USDT", balance)
+	try:
+		return exchange.create_market_sell_order("BTC/USDT", balance)
+	except:
+		print("❗️ Unable to sell, retrying in 10 seconds")
+		time.sleep(10)
+		return sell()
