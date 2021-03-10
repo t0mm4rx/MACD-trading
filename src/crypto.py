@@ -82,7 +82,7 @@ def plot_data(data):
 
 def buy():
 	balance = get_balance()
-	proportion = 0.5
+	proportion = 0.95
 	price = get_live_data().iloc[-1]['close']
 	amount = (balance * proportion) / price
 	amount = exchange.amount_to_precision("BTC/USDT", amount)
