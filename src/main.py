@@ -8,8 +8,6 @@ import log
 def set_variable(key, value):
 	global variables
 
-	if (variables == None):
-		variables = {}
 	variables[key] = value
 	pickle.dump(variables, open("./data/variables.pickle", "wb+"))
 
@@ -92,6 +90,7 @@ try:
 	if (variables['last_buy_balance'] != None):
 		log.log("❗️", "The script has been interrupted with an open position")
 except:
+	variables = {}
 	set_variable('last_buy_balance', None)
 	set_variable('last_buy_price', None)
 
