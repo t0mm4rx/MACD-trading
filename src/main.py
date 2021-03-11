@@ -8,6 +8,8 @@ import log
 def set_variable(key, value):
 	global variables
 
+	if (variables == None):
+		variables = {}
 	variables[key] = value
 	pickle.dump(variables, open("./data/variables.pickle", "wb+"))
 
