@@ -69,5 +69,20 @@ def pnl(usdt, percentage):
 	except:
 		print("❌ Cannot send data to the database")
 
+def order(way, price, cost):
+	global client
+
+	try:
+		client.write_points([{
+			"measurement": "order",
+			"fields": {
+				"price": price,
+				"cost": cost,
+				"way": way
+			},
+		}], time_precision='s')
+	except:
+		print("❌ Cannot send data to the database")
+
 def macd(macd1, macd2):
 	pass

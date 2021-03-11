@@ -30,6 +30,8 @@ services:
             dockerfile: ./containers/macd_bot/Dockerfile
         links:
           - db
+        environment:
+          - PYTHONUNBUFFERED=1
         restart: always
         volumes:
           - ./:/usr/src/app

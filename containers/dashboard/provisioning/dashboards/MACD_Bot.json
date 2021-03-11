@@ -18,60 +18,76 @@
 	"links": [],
 	"panels": [
 	  {
-		"aliasColors": {},
-		"bars": false,
-		"dashLength": 10,
-		"dashes": false,
 		"datasource": null,
-		"decimals": 3,
 		"fieldConfig": {
 		  "defaults": {
-			"color": {},
-			"custom": {},
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "axisLabel": "",
+			  "axisPlacement": "auto",
+			  "barAlignment": 0,
+			  "drawStyle": "line",
+			  "fillOpacity": 47,
+			  "gradientMode": "opacity",
+			  "hideFrom": {
+				"graph": false,
+				"legend": false,
+				"tooltip": false
+			  },
+			  "lineInterpolation": "linear",
+			  "lineWidth": 1,
+			  "pointSize": 5,
+			  "scaleDistribution": {
+				"type": "linear"
+			  },
+			  "showPoints": "never",
+			  "spanNulls": false
+			},
+			"decimals": 3,
+			"mappings": [],
 			"thresholds": {
 			  "mode": "absolute",
-			  "steps": []
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
 			},
 			"unit": "currencyUSD"
 		  },
 		  "overrides": []
 		},
-		"fill": 10,
-		"fillGradient": 5,
 		"gridPos": {
 		  "h": 12,
 		  "w": 15,
 		  "x": 0,
 		  "y": 0
 		},
-		"hiddenSeries": false,
 		"id": 2,
-		"legend": {
-		  "avg": true,
-		  "current": false,
-		  "hideZero": false,
-		  "max": true,
-		  "min": true,
-		  "rightSide": false,
-		  "show": true,
-		  "total": false,
-		  "values": true
-		},
-		"lines": true,
-		"linewidth": 1,
-		"nullPointMode": "null",
 		"options": {
-		  "alertThreshold": true
+		  "graph": {},
+		  "legend": {
+			"calcs": [
+			  "mean",
+			  "lastNotNull",
+			  "max",
+			  "min"
+			],
+			"displayMode": "list",
+			"placement": "bottom"
+		  },
+		  "tooltipOptions": {
+			"mode": "multi"
+		  }
 		},
-		"percentage": false,
 		"pluginVersion": "7.4.3",
-		"pointradius": 3,
-		"points": false,
-		"renderer": "flot",
-		"seriesOverrides": [],
-		"spaceLength": 10,
-		"stack": false,
-		"steppedLine": false,
 		"targets": [
 		  {
 			"groupBy": [
@@ -110,51 +126,11 @@
 			"tags": []
 		  }
 		],
-		"thresholds": [],
 		"timeFrom": null,
-		"timeRegions": [],
 		"timeShift": null,
 		"title": "BTC price 5m",
-		"tooltip": {
-		  "shared": true,
-		  "sort": 0,
-		  "value_type": "individual"
-		},
 		"transparent": true,
-		"type": "graph",
-		"xaxis": {
-		  "buckets": null,
-		  "mode": "time",
-		  "name": null,
-		  "show": true,
-		  "values": []
-		},
-		"yaxes": [
-		  {
-			"$$hashKey": "object:132",
-			"decimals": 3,
-			"format": "currencyUSD",
-			"label": null,
-			"logBase": 1,
-			"max": null,
-			"min": null,
-			"show": true
-		  },
-		  {
-			"$$hashKey": "object:133",
-			"decimals": null,
-			"format": "short",
-			"label": null,
-			"logBase": 1,
-			"max": null,
-			"min": null,
-			"show": true
-		  }
-		],
-		"yaxis": {
-		  "align": false,
-		  "alignLevel": null
-		}
+		"type": "timeseries"
 	  },
 	  {
 		"datasource": null,
@@ -283,55 +259,100 @@
 		"type": "table"
 	  },
 	  {
-		"aliasColors": {
-		  "MACD": "dark-blue",
-		  "MACD9": "dark-orange",
-		  "price.first": "dark-orange"
-		},
-		"bars": false,
-		"dashLength": 10,
-		"dashes": false,
 		"datasource": null,
 		"fieldConfig": {
 		  "defaults": {
-			"custom": {}
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "axisLabel": "",
+			  "axisPlacement": "auto",
+			  "barAlignment": 0,
+			  "drawStyle": "points",
+			  "fillOpacity": 6,
+			  "gradientMode": "none",
+			  "hideFrom": {
+				"graph": false,
+				"legend": false,
+				"tooltip": false
+			  },
+			  "lineInterpolation": "linear",
+			  "lineStyle": {
+				"fill": "solid"
+			  },
+			  "lineWidth": 1,
+			  "pointSize": 2,
+			  "scaleDistribution": {
+				"type": "linear"
+			  },
+			  "showPoints": "never",
+			  "spanNulls": false
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				}
+			  ]
+			},
+			"unit": "short"
 		  },
-		  "overrides": []
+		  "overrides": [
+			{
+			  "matcher": {
+				"id": "byName",
+				"options": "MACD"
+			  },
+			  "properties": [
+				{
+				  "id": "color",
+				  "value": {
+					"fixedColor": "dark-blue",
+					"mode": "fixed"
+				  }
+				}
+			  ]
+			},
+			{
+			  "matcher": {
+				"id": "byName",
+				"options": "MACD9"
+			  },
+			  "properties": [
+				{
+				  "id": "color",
+				  "value": {
+					"fixedColor": "dark-orange",
+					"mode": "fixed"
+				  }
+				}
+			  ]
+			}
+		  ]
 		},
-		"fill": 1,
-		"fillGradient": 0,
 		"gridPos": {
 		  "h": 8,
 		  "w": 15,
 		  "x": 0,
 		  "y": 12
 		},
-		"hiddenSeries": false,
 		"id": 6,
-		"legend": {
-		  "avg": false,
-		  "current": false,
-		  "max": false,
-		  "min": false,
-		  "show": true,
-		  "total": false,
-		  "values": false
-		},
-		"lines": true,
-		"linewidth": 1,
-		"nullPointMode": "null",
 		"options": {
-		  "alertThreshold": true
+		  "graph": {},
+		  "legend": {
+			"calcs": [],
+			"displayMode": "list",
+			"placement": "bottom"
+		  },
+		  "tooltipOptions": {
+			"mode": "multi"
+		  }
 		},
-		"percentage": false,
 		"pluginVersion": "7.4.3",
-		"pointradius": 2,
-		"points": false,
-		"renderer": "flot",
-		"seriesOverrides": [],
-		"spaceLength": 10,
-		"stack": false,
-		"steppedLine": false,
 		"targets": [
 		  {
 			"alias": "MACD",
@@ -409,49 +430,145 @@
 			"tags": []
 		  }
 		],
-		"thresholds": [],
-		"timeRegions": [],
+		"timeFrom": null,
+		"timeShift": null,
 		"title": "Computed MACD",
-		"tooltip": {
-		  "shared": true,
-		  "sort": 0,
-		  "value_type": "individual"
-		},
-		"type": "graph",
-		"xaxis": {
-		  "buckets": null,
-		  "mode": "time",
-		  "name": null,
-		  "show": true,
-		  "values": []
-		},
-		"yaxes": [
-		  {
-			"$$hashKey": "object:1520",
-			"format": "short",
-			"label": null,
-			"logBase": 1,
-			"max": null,
-			"min": null,
-			"show": true
+		"transparent": true,
+		"type": "timeseries"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "align": null,
+			  "filterable": false,
+			  "width": 35
+			},
+			"decimals": 2,
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
 		  },
+		  "overrides": [
+			{
+			  "matcher": {
+				"id": "byName",
+				"options": "Time"
+			  },
+			  "properties": [
+				{
+				  "id": "custom.width",
+				  "value": 157
+				}
+			  ]
+			},
+			{
+			  "matcher": {
+				"id": "byName",
+				"options": "way"
+			  },
+			  "properties": [
+				{
+				  "id": "custom.width",
+				  "value": 56
+				}
+			  ]
+			},
+			{
+			  "matcher": {
+				"id": "byName",
+				"options": "price"
+			  },
+			  "properties": [
+				{
+				  "id": "custom.width",
+				  "value": 149
+				}
+			  ]
+			},
+			{
+			  "matcher": {
+				"id": "byName",
+				"options": "cost"
+			  },
+			  "properties": [
+				{
+				  "id": "custom.width",
+				  "value": 147
+				}
+			  ]
+			}
+		  ]
+		},
+		"gridPos": {
+		  "h": 8,
+		  "w": 9,
+		  "x": 15,
+		  "y": 20
+		},
+		"id": 8,
+		"options": {
+		  "showHeader": true,
+		  "sortBy": []
+		},
+		"pluginVersion": "7.4.3",
+		"targets": [
 		  {
-			"$$hashKey": "object:1521",
-			"format": "short",
-			"label": null,
-			"logBase": 1,
-			"max": null,
-			"min": null,
-			"show": true
+			"groupBy": [],
+			"measurement": "order",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"way"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"price"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"cost"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": []
 		  }
 		],
-		"yaxis": {
-		  "align": false,
-		  "alignLevel": null
-		}
+		"title": "Orders",
+		"type": "table"
 	  }
 	],
-	"refresh": "1m",
+	"refresh": "10s",
 	"schemaVersion": 27,
 	"style": "dark",
 	"tags": [],
@@ -459,12 +576,12 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-1h",
+	  "from": "now-3h",
 	  "to": "now"
 	},
 	"timepicker": {},
 	"timezone": "",
 	"title": "MACD bot",
 	"uid": "j7UVZbUMz",
-	"version": 2
+	"version": 3
   }

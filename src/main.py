@@ -25,6 +25,7 @@ def buy():
 		trade['cost'],
 		last_buy_balance
 	))
+	log.order("buy", trade['price'], trade['cost'])
 	log.log("⏳", "Now waiting to sell...")
 
 def sell():
@@ -33,6 +34,7 @@ def sell():
 	log.log("⚠️", "Sell signal")
 	trade = crypto.sell()
 	log.log("💵", "Sold $BTC @{:.2f}".format(trade['price']))
+	log.order("sell", trade['price'], trade['cost'])
 	balance = crypto.get_balance()
 	profit = balance - last_buy_balance
 	profit_percentage = profit / last_buy_balance * 100
