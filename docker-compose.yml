@@ -24,6 +24,15 @@ services:
           - 3000
         links:
           - db
+    macd_bot:
+        build:
+            context: .
+            dockerfile: ./containers/macd_bot/Dockerfile
+        links:
+          - db
+        restart: always
+        volumes:
+          - ./:/usr/src/app
 volumes:
       db:
       dashboard:

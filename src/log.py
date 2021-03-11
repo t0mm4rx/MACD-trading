@@ -39,17 +39,33 @@ def log(emoji, message):
 	except:
 		print("❌ Cannot send data to the database")
 
-def price(timestamp, value):
+def price(timestamp, value, macd, macd9):
 	global client
 
 	try:
 		client.write_points([{
 			"measurement": "price",
 			"fields": {
-				"value": value
+				"value": value,
+				"macd": macd,
+				"macd9": macd9
 			},
 			"timestamp": timestamp
-		}], time_precision='ms')
+		}], time_precision='s')
+	except:
+		print("❌ Cannot send data to the database")
+
+def pnl(usdt, percentage):
+	global client
+
+	try:
+		client.write_points([{
+			"measurement": "pnl",
+			"fields": {
+				"usdt": usdt,
+				"percentage": percentage
+			},
+		}], time_precision='s')
 	except:
 		print("❌ Cannot send data to the database")
 

@@ -77,7 +77,7 @@
 			"groupBy": [
 			  {
 				"params": [
-				  "$__interval"
+				  "5m"
 				],
 				"type": "time"
 			  },
@@ -103,7 +103,7 @@
 				},
 				{
 				  "params": [],
-				  "type": "last"
+				  "type": "mean"
 				}
 			  ]
 			],
@@ -114,7 +114,7 @@
 		"timeFrom": null,
 		"timeRegions": [],
 		"timeShift": null,
-		"title": "BTC price",
+		"title": "BTC price 5m",
 		"tooltip": {
 		  "shared": true,
 		  "sort": 0,
@@ -161,7 +161,7 @@
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
-			  "mode": "thresholds"
+			  "mode": "fixed"
 			},
 			"custom": {
 			  "align": null,
@@ -238,7 +238,7 @@
 		  ]
 		},
 		"gridPos": {
-		  "h": 38,
+		  "h": 20,
 		  "w": 9,
 		  "x": 15,
 		  "y": 0
@@ -281,9 +281,177 @@
 		"title": "Logs",
 		"transformations": [],
 		"type": "table"
+	  },
+	  {
+		"aliasColors": {
+		  "MACD": "dark-blue",
+		  "MACD9": "dark-orange",
+		  "price.first": "dark-orange"
+		},
+		"bars": false,
+		"dashLength": 10,
+		"dashes": false,
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"custom": {}
+		  },
+		  "overrides": []
+		},
+		"fill": 1,
+		"fillGradient": 0,
+		"gridPos": {
+		  "h": 8,
+		  "w": 15,
+		  "x": 0,
+		  "y": 12
+		},
+		"hiddenSeries": false,
+		"id": 6,
+		"legend": {
+		  "avg": false,
+		  "current": false,
+		  "max": false,
+		  "min": false,
+		  "show": true,
+		  "total": false,
+		  "values": false
+		},
+		"lines": true,
+		"linewidth": 1,
+		"nullPointMode": "null",
+		"options": {
+		  "alertThreshold": true
+		},
+		"percentage": false,
+		"pluginVersion": "7.4.3",
+		"pointradius": 2,
+		"points": false,
+		"renderer": "flot",
+		"seriesOverrides": [],
+		"spaceLength": 10,
+		"stack": false,
+		"steppedLine": false,
+		"targets": [
+		  {
+			"alias": "MACD",
+			"groupBy": [
+			  {
+				"params": [
+				  "$__interval"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "linear"
+				],
+				"type": "fill"
+			  }
+			],
+			"measurement": "price",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "time_series",
+			"select": [
+			  [
+				{
+				  "params": [
+					"macd"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				}
+			  ]
+			],
+			"tags": []
+		  },
+		  {
+			"alias": "MACD9",
+			"groupBy": [
+			  {
+				"params": [
+				  "$__interval"
+				],
+				"type": "time"
+			  },
+			  {
+				"params": [
+				  "linear"
+				],
+				"type": "fill"
+			  }
+			],
+			"hide": false,
+			"measurement": "price",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "B",
+			"resultFormat": "time_series",
+			"select": [
+			  [
+				{
+				  "params": [
+					"macd9"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "mean"
+				}
+			  ]
+			],
+			"tags": []
+		  }
+		],
+		"thresholds": [],
+		"timeRegions": [],
+		"title": "Computed MACD",
+		"tooltip": {
+		  "shared": true,
+		  "sort": 0,
+		  "value_type": "individual"
+		},
+		"type": "graph",
+		"xaxis": {
+		  "buckets": null,
+		  "mode": "time",
+		  "name": null,
+		  "show": true,
+		  "values": []
+		},
+		"yaxes": [
+		  {
+			"$$hashKey": "object:1520",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  },
+		  {
+			"$$hashKey": "object:1521",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  }
+		],
+		"yaxis": {
+		  "align": false,
+		  "alignLevel": null
+		}
 	  }
 	],
-	"refresh": "5s",
+	"refresh": "1m",
 	"schemaVersion": 27,
 	"style": "dark",
 	"tags": [],
@@ -291,7 +459,7 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-30m",
+	  "from": "now-1h",
 	  "to": "now"
 	},
 	"timepicker": {},

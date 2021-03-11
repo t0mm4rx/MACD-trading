@@ -55,26 +55,20 @@ def sell():
 			balance
 		))
 	set_last_buy_balance(None)
+	log.pnl(profit, profit_percentage)
 
 def check_macd():
 	global last_buy_balance
 
 	data = crypto.get_live_data()
-	# print(data)
 	should_buy = data.iloc[-1]['crossover_buy'] or data.iloc[-2]['crossover_buy']
 	should_sell = data.iloc[-1]['crossover_sell'] or data.iloc[-2]['crossover_sell']
-	# print("last_buy_balance", last_buy_balance)
-	# print("should_buy", should_buy)
-	# print("should_sell", should_sell)
-	# print("cond1", last_buy_balance == None and should_buy)
-	# print("cond1", last_buy_balance != None and should_sell)
 	if (last_buy_balance != None and should_sell):
 		sell()
 	if (last_buy_balance == None and should_buy):
 		buy()
 	crypto.plot_data(data)
-	for i in range(1, 6):
-		log.price(data.iloc[-i]['timestamp'], data.iloc[-i]['close'])
+	log.price(data.iloc[-1]['timestamp'], data.iloc[-1]['close'], data.iloc[-1]['macd'], data.iloc[-1]['macd9'])
 
 # Connecting to the different services
 print("ℹ️  Connecting to the log database")
@@ -94,11 +88,13 @@ try:
 except:
 	set_last_buy_balance(None)
 
+offset_seconds = 10
+frequency = 5
 while True:
 	current_time = datetime.datetime.now()
-	if (current_time.second == 10 and current_time.minute % 1 == 0 and current_time.microsecond == 0):
+	if (current_time.second == offset_seconds and current_time.minute % 5 == 0):
 		while True:
 			current_time = datetime.datetime.now()
 			log.log("ℹ️", "Checking for {}".format(current_time))
 			check_macd()
-			time.sleep(70 - datetime.datetime.now().second)
+			time.sleep(offset_seconds + frequency * 60 - datetime.datetime.now().second)

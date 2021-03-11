@@ -1,0 +1,6 @@
+ccxt
+pandas
+numpy
+influxdb
+tweepy
+matplotlib
