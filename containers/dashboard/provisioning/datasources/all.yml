@@ -2,10 +2,9 @@ datasources:
 -  access: 'proxy'
    editable: true
    is_default: true
-   name: 'Database'
-   database: 'test'
+   name: 'MACD Bot'
+   database: 'macd_bot'
    org_id: 1
    type: 'influxdb'
    url: 'http://db:8086'
-   allowUiUpdates: true
    version: 1

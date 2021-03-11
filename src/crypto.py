@@ -8,6 +8,7 @@ import json
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import time
+import log
 
 exchange = None
 
@@ -20,7 +21,7 @@ def get_balance():
 	try:
 		return exchange.fetch_balance()['USDT']['total']
 	except:
-		print("❗️ Unable to fetch balance, retrying in 10 seconds")
+		log.log("❗️", "Unable to fetch balance, retrying in 10 seconds")
 		time.sleep(10)
 		return get_balance()
 
@@ -29,7 +30,7 @@ def get_live_data():
 		# Fetch latest data
 		candles = np.array(exchange.fetch_ohlcv("BTC/USDT", '5m'))
 	except:
-		print("❗️ Unable to fetch live data, retrying in 10 seconds")
+		log.log("❗️", "Unable to fetch live data, retrying in 10 seconds")
 		time.sleep(10)
 		return get_live_data()
 	
@@ -89,7 +90,7 @@ def buy():
 	try:
 		return exchange.create_market_buy_order("BTC/USDT", amount)
 	except:
-		print("❗️ Unable to buy, retrying in 10 seconds")
+		log.log("❗️", "Unable to buy, retrying in 10 seconds")
 		time.sleep(10)
 		return buy()
 
@@ -98,6 +99,6 @@ def sell():
 	try:
 		return exchange.create_market_sell_order("BTC/USDT", balance)
 	except:
-		print("❗️ Unable to sell, retrying in 10 seconds")
+		log.log("❗️", "Unable to sell, retrying in 10 seconds")
 		time.sleep(10)
 		return sell()
