@@ -55,7 +55,7 @@ def price(timestamp, value, macd, macd9):
 	except:
 		print("❌ Cannot send data to the database")
 
-def pnl(usdt, percentage):
+def pnl(usdt, percentage, true_percentage):
 	global client
 
 	try:
@@ -63,7 +63,8 @@ def pnl(usdt, percentage):
 			"measurement": "pnl",
 			"fields": {
 				"usdt": float(usdt),
-				"percentage": float(percentage)
+				"percentage": float(percentage),
+				"true_percentage": float(true_percentage)
 			},
 		}], time_precision='s')
 	except:
