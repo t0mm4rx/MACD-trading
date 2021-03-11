@@ -9,7 +9,7 @@ def set_variable(key, value):
 	global variables
 
 	variables[key] = value
-	pickle.dump(variables, open("./data/variables.pickle", "wb"))
+	pickle.dump(variables, open("./data/variables.pickle", "wb+"))
 
 def buy():
 	global variables
