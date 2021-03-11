@@ -1,0 +1,29 @@
+services:
+    db:
+        image: influxdb:1.8.4
+        restart: always
+        ports:
+          - "8086:8086"
+          - "8083:8083"
+          - "2003:2003"
+        volumes:
+          - db:/var/lib/influxdb
+    dashboard:
+        image: grafana/grafana:7.4.3
+        volumes:
+          - dashboard:/var/lib/grafana
+          - ./containers/dashboard/provisioning:/etc/grafana/provisioning
+        environment:
+          - GF_USERS_ALLOW_SIGN_UP=false
+        env_file:
+          - .env
+        restart: always
+        ports:
+            - "3000:3000"
+        expose:
+          - 3000
+        links:
+          - db
+volumes:
+      db:
+      dashboard:
