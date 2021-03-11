@@ -62,8 +62,8 @@ def pnl(usdt, percentage):
 		client.write_points([{
 			"measurement": "pnl",
 			"fields": {
-				"usdt": usdt,
-				"percentage": percentage
+				"usdt": float(usdt),
+				"percentage": float(percentage)
 			},
 		}], time_precision='s')
 	except:

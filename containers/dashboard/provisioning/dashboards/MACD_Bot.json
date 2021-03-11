@@ -445,8 +445,7 @@
 			},
 			"custom": {
 			  "align": null,
-			  "filterable": false,
-			  "width": 35
+			  "filterable": false
 			},
 			"decimals": 2,
 			"mappings": [],
@@ -464,56 +463,7 @@
 			  ]
 			}
 		  },
-		  "overrides": [
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "Time"
-			  },
-			  "properties": [
-				{
-				  "id": "custom.width",
-				  "value": 157
-				}
-			  ]
-			},
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "way"
-			  },
-			  "properties": [
-				{
-				  "id": "custom.width",
-				  "value": 56
-				}
-			  ]
-			},
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "price"
-			  },
-			  "properties": [
-				{
-				  "id": "custom.width",
-				  "value": 149
-				}
-			  ]
-			},
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "cost"
-			  },
-			  "properties": [
-				{
-				  "id": "custom.width",
-				  "value": 147
-				}
-			  ]
-			}
-		  ]
+		  "overrides": []
 		},
 		"gridPos": {
 		  "h": 8,
@@ -566,6 +516,78 @@
 		],
 		"title": "Orders",
 		"type": "table"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "align": null,
+			  "filterable": false
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			},
+			"unit": "short"
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 8,
+		  "w": 9,
+		  "x": 15,
+		  "y": 28
+		},
+		"id": 10,
+		"options": {
+		  "showHeader": true
+		},
+		"pluginVersion": "7.4.3",
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "pnl",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"usdt"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"percentage"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": []
+		  }
+		],
+		"title": "PNL",
+		"type": "table"
 	  }
 	],
 	"refresh": "10s",
@@ -576,7 +598,7 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-3h",
+	  "from": "now-6h",
 	  "to": "now"
 	},
 	"timepicker": {},
