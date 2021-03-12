@@ -10,7 +10,8 @@ def connect(name):
 	global client
 
 	config = json.load(open("./config.json", "r"))
-	client = influxdb.InfluxDBClient(host=config['influxdb'])
+	creds = json.load(open("./creds.json", "r"))
+	client = influxdb.InfluxDBClient(host=config['influxdb'], username=creds['influxdb']['user'], password=creds['influxdb']['password'])
 	
 	dbs = client.get_list_database()
 	found = False

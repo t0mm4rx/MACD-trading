@@ -1,3 +1,5 @@
+apiVersion: 1
+
 datasources:
 -  access: 'proxy'
    editable: true
@@ -8,3 +10,6 @@ datasources:
    type: 'influxdb'
    url: 'http://db:8086'
    version: 1
+   user: $INFLUXDB_ADMIN_USER
+   secureJsonData:
+    password: $INFLUXDB_ADMIN_PASSWORD

@@ -18,7 +18,7 @@
 	"links": [],
 	"panels": [
 	  {
-		"datasource": null,
+		"datasource": "MACD Bot",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -93,7 +93,7 @@
 			"groupBy": [
 			  {
 				"params": [
-				  "5m"
+				  "$__interval"
 				],
 				"type": "time"
 			  },
@@ -107,6 +107,7 @@
 			"measurement": "price",
 			"orderByTime": "ASC",
 			"policy": "default",
+			"queryType": "randomWalk",
 			"refId": "A",
 			"resultFormat": "time_series",
 			"select": [
@@ -133,7 +134,7 @@
 		"type": "timeseries"
 	  },
 	  {
-		"datasource": null,
+		"datasource": "MACD Bot",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -231,8 +232,9 @@
 			"measurement": "log",
 			"orderByTime": "ASC",
 			"policy": "default",
+			"queryType": "randomWalk",
 			"refId": "A",
-			"resultFormat": "table",
+			"resultFormat": "logs",
 			"select": [
 			  [
 				{
@@ -259,7 +261,7 @@
 		"type": "table"
 	  },
 	  {
-		"datasource": null,
+		"datasource": "MACD Bot",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -269,8 +271,8 @@
 			  "axisLabel": "",
 			  "axisPlacement": "auto",
 			  "barAlignment": 0,
-			  "drawStyle": "points",
-			  "fillOpacity": 6,
+			  "drawStyle": "line",
+			  "fillOpacity": 0,
 			  "gradientMode": "none",
 			  "hideFrom": {
 				"graph": false,
@@ -355,7 +357,6 @@
 		"pluginVersion": "7.4.3",
 		"targets": [
 		  {
-			"alias": "MACD",
 			"groupBy": [
 			  {
 				"params": [
@@ -373,6 +374,7 @@
 			"measurement": "price",
 			"orderByTime": "ASC",
 			"policy": "default",
+			"queryType": "randomWalk",
 			"refId": "A",
 			"resultFormat": "time_series",
 			"select": [
@@ -387,33 +389,7 @@
 				  "params": [],
 				  "type": "mean"
 				}
-			  ]
-			],
-			"tags": []
-		  },
-		  {
-			"alias": "MACD9",
-			"groupBy": [
-			  {
-				"params": [
-				  "$__interval"
-				],
-				"type": "time"
-			  },
-			  {
-				"params": [
-				  "linear"
-				],
-				"type": "fill"
-			  }
-			],
-			"hide": false,
-			"measurement": "price",
-			"orderByTime": "ASC",
-			"policy": "default",
-			"refId": "B",
-			"resultFormat": "time_series",
-			"select": [
+			  ],
 			  [
 				{
 				  "params": [
@@ -437,7 +413,7 @@
 		"type": "timeseries"
 	  },
 	  {
-		"datasource": null,
+		"datasource": "MACD Bot",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -482,8 +458,9 @@
 			"measurement": "pnl",
 			"orderByTime": "ASC",
 			"policy": "default",
+			"queryType": "randomWalk",
 			"refId": "A",
-			"resultFormat": "table",
+			"resultFormat": "logs",
 			"select": [
 			  [
 				{
@@ -521,7 +498,7 @@
 		"bars": false,
 		"dashLength": 10,
 		"dashes": false,
-		"datasource": null,
+		"datasource": "MACD Bot",
 		"fieldConfig": {
 		  "defaults": {
 			"custom": {}
@@ -568,7 +545,8 @@
 			"measurement": "pnl",
 			"orderByTime": "ASC",
 			"policy": "default",
-			"refId": "Percentage",
+			"queryType": "randomWalk",
+			"refId": "A",
 			"resultFormat": "time_series",
 			"select": [
 			  [
@@ -588,7 +566,9 @@
 		  }
 		],
 		"thresholds": [],
+		"timeFrom": null,
 		"timeRegions": [],
+		"timeShift": null,
 		"title": "Total PNL",
 		"tooltip": {
 		  "shared": true,
@@ -629,7 +609,7 @@
 		}
 	  },
 	  {
-		"datasource": null,
+		"datasource": "MACD Bot",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -682,6 +662,7 @@
 			"measurement": "pnl",
 			"orderByTime": "ASC",
 			"policy": "default",
+			"queryType": "randomWalk",
 			"refId": "A",
 			"resultFormat": "time_series",
 			"select": [
@@ -694,7 +675,7 @@
 				},
 				{
 				  "params": [],
-				  "type": "sum"
+				  "type": "cumulative_sum"
 				}
 			  ]
 			],
@@ -715,7 +696,7 @@
 		"type": "stat"
 	  },
 	  {
-		"datasource": null,
+		"datasource": "MACD Bot",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -761,8 +742,9 @@
 			"measurement": "order",
 			"orderByTime": "ASC",
 			"policy": "default",
+			"queryType": "randomWalk",
 			"refId": "A",
-			"resultFormat": "table",
+			"resultFormat": "logs",
 			"select": [
 			  [
 				{
@@ -804,7 +786,7 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-6h",
+	  "from": "now-2d",
 	  "to": "now"
 	},
 	"timepicker": {},
