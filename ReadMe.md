@@ -59,6 +59,11 @@ GF_SECURITY_ADMIN_PASSWORD=password
 Then to run the project:
 ```sh
 docker-compose up
+
+# If you want to run it on your SSH server in deamon mode
+docker-compose up -d
+# To stop the project
+docker-compose kill
 ```
 
 ## Contact me

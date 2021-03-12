@@ -63,14 +63,14 @@ def sell():
 	log.pnl(profit, profit_percentage, true_percentage)
 
 def check_macd():
-	global variables
+	global variables, passive
 
 	data = crypto.get_live_data()
 	should_buy = data.iloc[-1]['crossover_buy'] or data.iloc[-2]['crossover_buy']
 	should_sell = data.iloc[-1]['crossover_sell'] or data.iloc[-2]['crossover_sell']
-	if (variables['last_buy_balance'] != None and should_sell):
+	if (variables['last_buy_balance'] != None and should_sell and not passive):
 		sell()
-	if (variables['last_buy_balance'] == None and should_buy):
+	if (variables['last_buy_balance'] == None and should_buy and not passive):
 		buy()
 	crypto.plot_data(data)
 	log.price(data.iloc[-1]['timestamp'], data.iloc[-1]['close'], data.iloc[-1]['macd'], data.iloc[-1]['macd9'])
