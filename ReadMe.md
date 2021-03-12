@@ -36,8 +36,29 @@ First, create a creds.json file at the root of the project. You can fill it like
 	"binance": {
 		"apiKey": "XXX",
 		"secret": "XXX"
-	}
+	},
+	"twitter": {
+		"consumerKey": "XXX",
+		"consumerSecret": "XXX",
+		"accessToken": "XXX",
+		"accessTokenSecret": "XXX"
+	},
 }
+```
+
+Then, create a .env file:
+```sh
+# To set in passive mode or not
+PASSIVE_MODE=1
+
+# Define the Grafana user/password
+GF_SECURITY_ADMIN_USER=user
+GF_SECURITY_ADMIN_PASSWORD=password
+```
+
+Then to run the project:
+```sh
+docker-compose up
 ```
 
 ## Contact me

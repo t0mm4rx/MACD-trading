@@ -4,6 +4,7 @@ import datetime
 import pickle
 import time
 import log
+import os
 
 def set_variable(key, value):
 	global variables
@@ -93,6 +94,12 @@ except:
 	variables = {}
 	set_variable('last_buy_balance', None)
 	set_variable('last_buy_price', None)
+
+if ('PASSIVE_MODE' in os.environ and os.environ['PASSIVE_MODE'] == '1'):
+	passive = True
+	log.log("👁", "Started in passive mode, won't take any decision")
+else:
+	passive = False
 
 offset_seconds = 10
 frequency = 5

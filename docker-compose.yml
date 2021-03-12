@@ -33,6 +33,8 @@ services:
           - db
         environment:
           - PYTHONUNBUFFERED=1
+        env_file:
+          - .env
         restart: always
         volumes:
           - ./:/usr/src/app
