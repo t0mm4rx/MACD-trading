@@ -84,6 +84,3 @@ def order(way, price, cost):
 		}], time_precision='s')
 	except:
 		print("❌ Cannot send data to the database")
-
-def macd(macd1, macd2):
-	pass

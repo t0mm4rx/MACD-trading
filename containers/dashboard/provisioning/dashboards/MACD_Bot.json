@@ -214,7 +214,7 @@
 		  ]
 		},
 		"gridPos": {
-		  "h": 20,
+		  "h": 12,
 		  "w": 9,
 		  "x": 15,
 		  "y": 0
@@ -447,7 +447,195 @@
 			  "align": null,
 			  "filterable": false
 			},
-			"decimals": 2,
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			},
+			"unit": "short"
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 8,
+		  "w": 9,
+		  "x": 15,
+		  "y": 12
+		},
+		"id": 10,
+		"options": {
+		  "showHeader": true
+		},
+		"pluginVersion": "7.4.3",
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "pnl",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"usdt"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"percentage"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"true_percentage"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": []
+		  }
+		],
+		"title": "PNL",
+		"type": "table"
+	  },
+	  {
+		"aliasColors": {},
+		"bars": false,
+		"dashLength": 10,
+		"dashes": false,
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"custom": {}
+		  },
+		  "overrides": []
+		},
+		"fill": 1,
+		"fillGradient": 0,
+		"gridPos": {
+		  "h": 8,
+		  "w": 15,
+		  "x": 0,
+		  "y": 20
+		},
+		"hiddenSeries": false,
+		"id": 14,
+		"legend": {
+		  "avg": false,
+		  "current": false,
+		  "max": false,
+		  "min": false,
+		  "show": true,
+		  "total": false,
+		  "values": false
+		},
+		"lines": true,
+		"linewidth": 1,
+		"nullPointMode": "null",
+		"options": {
+		  "alertThreshold": true
+		},
+		"percentage": false,
+		"pluginVersion": "7.4.3",
+		"pointradius": 2,
+		"points": false,
+		"renderer": "flot",
+		"seriesOverrides": [],
+		"spaceLength": 10,
+		"stack": false,
+		"steppedLine": false,
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "pnl",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "Percentage",
+			"resultFormat": "time_series",
+			"select": [
+			  [
+				{
+				  "params": [
+					"percentage"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "cumulative_sum"
+				}
+			  ]
+			],
+			"tags": []
+		  }
+		],
+		"thresholds": [],
+		"timeRegions": [],
+		"title": "Total PNL",
+		"tooltip": {
+		  "shared": true,
+		  "sort": 0,
+		  "value_type": "individual"
+		},
+		"type": "graph",
+		"xaxis": {
+		  "buckets": null,
+		  "mode": "time",
+		  "name": null,
+		  "show": true,
+		  "values": []
+		},
+		"yaxes": [
+		  {
+			"$$hashKey": "object:497",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  },
+		  {
+			"$$hashKey": "object:498",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  }
+		],
+		"yaxis": {
+		  "align": false,
+		  "alignLevel": null
+		}
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {},
 			"mappings": [],
 			"thresholds": {
 			  "mode": "absolute",
@@ -470,6 +658,96 @@
 		  "w": 9,
 		  "x": 15,
 		  "y": 20
+		},
+		"id": 12,
+		"options": {
+		  "colorMode": "value",
+		  "graphMode": "area",
+		  "justifyMode": "auto",
+		  "orientation": "auto",
+		  "reduceOptions": {
+			"calcs": [
+			  "lastNotNull"
+			],
+			"fields": "",
+			"values": false
+		  },
+		  "text": {},
+		  "textMode": "auto"
+		},
+		"pluginVersion": "7.4.3",
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "pnl",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"refId": "A",
+			"resultFormat": "time_series",
+			"select": [
+			  [
+				{
+				  "params": [
+					"percentage"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "sum"
+				}
+			  ]
+			],
+			"tags": []
+		  }
+		],
+		"title": "Total PNL",
+		"transformations": [
+		  {
+			"id": "reduce",
+			"options": {
+			  "includeTimeField": false,
+			  "mode": "seriesToRows",
+			  "reducers": []
+			}
+		  }
+		],
+		"type": "stat"
+	  },
+	  {
+		"datasource": null,
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "align": null,
+			  "filterable": false
+			},
+			"decimals": 2,
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 10,
+		  "w": 15,
+		  "x": 0,
+		  "y": 28
 		},
 		"id": 8,
 		"options": {
@@ -516,78 +794,6 @@
 		],
 		"title": "Orders",
 		"type": "table"
-	  },
-	  {
-		"datasource": null,
-		"fieldConfig": {
-		  "defaults": {
-			"color": {
-			  "mode": "thresholds"
-			},
-			"custom": {
-			  "align": null,
-			  "filterable": false
-			},
-			"mappings": [],
-			"thresholds": {
-			  "mode": "absolute",
-			  "steps": [
-				{
-				  "color": "green",
-				  "value": null
-				},
-				{
-				  "color": "red",
-				  "value": 80
-				}
-			  ]
-			},
-			"unit": "short"
-		  },
-		  "overrides": []
-		},
-		"gridPos": {
-		  "h": 8,
-		  "w": 9,
-		  "x": 15,
-		  "y": 28
-		},
-		"id": 10,
-		"options": {
-		  "showHeader": true
-		},
-		"pluginVersion": "7.4.3",
-		"targets": [
-		  {
-			"groupBy": [],
-			"measurement": "pnl",
-			"orderByTime": "ASC",
-			"policy": "default",
-			"refId": "A",
-			"resultFormat": "table",
-			"select": [
-			  [
-				{
-				  "params": [
-					"usdt"
-				  ],
-				  "type": "field"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"percentage"
-				  ],
-				  "type": "field"
-				}
-			  ]
-			],
-			"tags": []
-		  }
-		],
-		"title": "PNL",
-		"type": "table"
 	  }
 	],
 	"refresh": "10s",
@@ -605,5 +811,5 @@
 	"timezone": "",
 	"title": "MACD bot",
 	"uid": "j7UVZbUMz",
-	"version": 3
+	"version": 1
   }
