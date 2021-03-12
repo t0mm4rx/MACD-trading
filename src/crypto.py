@@ -28,7 +28,7 @@ def get_balance():
 def get_live_data():
 	try:
 		# Fetch latest data
-		candles = np.array(exchange.fetch_ohlcv("BTC/USDT", '5m'))
+		candles = np.array(exchange.fetch_ohlcv("BTC/USDT", '30m'))
 	except:
 		log.log("❗️", "Unable to fetch live data, retrying in 10 seconds")
 		time.sleep(10)

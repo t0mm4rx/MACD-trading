@@ -106,10 +106,10 @@ except:
 	set_variable('last_buy_price', None)
 
 offset_seconds = 10
-frequency = 5
+frequency = 30
 while True:
 	current_time = datetime.datetime.now()
-	if (current_time.second == offset_seconds and current_time.minute % 5 == 0):
+	if (current_time.second == offset_seconds and current_time.minute % 30 == 0):
 		while True:
 			current_time = datetime.datetime.now()
 			log.log("ℹ️", "Checking for {}".format(current_time))
