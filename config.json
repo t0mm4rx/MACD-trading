@@ -1,5 +1,5 @@
 {
 	"influxdb": "db",
 	"tweet": false,
-	"passive": true
+	"passive": false
 }
