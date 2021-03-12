@@ -39,7 +39,7 @@ def sell():
 	balance = crypto.get_balance()
 	profit = balance - variables['last_buy_balance']
 	profit_percentage = profit / variables['last_buy_balance'] * 100
-	true_percentage = (trade['price'] - variables['last_buy_price']) / variables['last_buy_price']
+	true_percentage = ((trade['price'] - variables['last_buy_price']) / variables['last_buy_price']) * 100
 	if (profit > 0):
 		log.log("📈", "Profit: +{:.2f}$, +{:.2f}%".format(profit, profit_percentage))
 		twitter.tweet("🚀 I sold my $BTC at {:.2f}$ for {:.2f}$!\n📈 I won +{:.2f}$ (+{:.2f}%).\n💵 My current balance is {:.2f}$.".format(
