@@ -1,5 +1,6 @@
-from Data import Data
-from Logger import Logger
+from lib.Data import Data
+from lib.Logger import Logger
+from lib.Exchange import Exchange
 import datetime
 import time
 
@@ -41,14 +42,25 @@ class Bot:
 	The exchange property is an instance of Exchange. It allows you to interact with the actual markets.
 	"""
 
-	def __init__(self, name, ticker, period, period_needed=None):
+	def __init__(self, name, ticker, period, periods_needed=None):
+		"""
+		- name: string, the name of the bot
+		- ticker: string, the ticker formatted like that: ASSET1/ASSET2
+		- period: string, the period on which the loop will be set, and the resolution of the candles.
+		- periods_needed: int, the number of candles you will get every loop.
+		"""
 		self.name = name
 		self.ticker = ticker
 		self.period_text = period
-		self.period_needed = period_needed
+		self.periods_needed = periods_needed
 		self.offset_seconds = 10
-		self.logger = Logger(self.name)
+		try:
+			self.logger = Logger(self.name)
+		except:
+			print("❌ Cannot connect to the log DB, are you sure it's running?")
+			raise
 		self.data = Data(self.name)
+		self.exchange = Exchange(self.logger)
 		try:
 			self.period = period_matching[period]
 		except:
@@ -56,7 +68,7 @@ class Bot:
 			raise
 		self.logger.log("ℹ️", f"Bot {self.name} started with a period of {period}")
 		self.setup()
-		self.loop()
+		self.preloop()
 
 	def preloop(self):
 		"""Waits for the selected period to begin. We use UTC time.
@@ -87,7 +99,12 @@ class Bot:
 		call compute with the latest data.
 		"""
 		while (1):
-			pass
+			current_time = datetime.datetime.utcnow()
+			self.logger.log("ℹ️", f"Downloading latest data at {current_time}")
+			data = self.exchange.get_latest_data(self.ticker, self.period_text, self.periods_needed)
+			self.logger.price(data.iloc[-1]['close'])
+			self.compute(data)
+			time.sleep(self.offset_seconds + self.period * 60 - datetime.datetime.now().second)
 
 	def setup(self):
 		"""To implement. Set the bot variable, instantiate classes... This will be done once before the bot

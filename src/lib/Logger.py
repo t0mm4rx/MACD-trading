@@ -1,5 +1,5 @@
 import influxdb
-import config
+import lib.config as config
 
 class Logger:
 	"""This class is used to log data to the console and to the database.
@@ -16,7 +16,7 @@ class Logger:
 		"""
 		self.name = name
 		self.client = influxdb.InfluxDBClient(
-			host=config.get_config()['influxdb'], username=config.get_creds()['influxdb']['user'], password=config.get_config()['influxdb']['password']
+			host=config.get_config()['influxdb'], username=config.get_creds()['influxdb']['user'], password=config.get_creds()['influxdb']['password']
 		)
 		dbs = self.client.get_list_database()
 		found = False
@@ -27,7 +27,7 @@ class Logger:
 			self.client.create_database(self.db_name)
 		self.client.switch_database(self.db_name)
 
-	def log_price(self, price):
+	def price(self, price):
 		"""Log the latest asset price. It will be called automatically by the Bot class.
 
 		- price: float, the current price of the traded asset

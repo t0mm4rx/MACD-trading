@@ -27,10 +27,10 @@ services:
           - 3000
         links:
           - db
-    macd_bot:
+    test_bot:
         build:
             context: .
-            dockerfile: ./containers/macd_bot/Dockerfile
+            dockerfile: ./containers/test_bot/Dockerfile
         links:
           - db
         environment:
