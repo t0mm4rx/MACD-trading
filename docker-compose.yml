@@ -30,11 +30,11 @@ services:
     test_bot:
         build:
             context: .
-            dockerfile: ./containers/test_bot/Dockerfile
+            dockerfile: ./containers/bot/Dockerfile
         links:
           - db
         environment:
-          - PYTHONUNBUFFERED=1
+          - BOT_CLASS=TestBot
         env_file:
           - .env
         restart: always

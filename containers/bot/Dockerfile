@@ -8,4 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN mkdir -p graphs
 RUN mkdir -p data
 
-CMD ["python", "./src/test.py"]
+ENV PYTHONUNBUFFERED=1
+
+CMD ["sh", "-c", "python ./src/launcher.py $BOT_CLASS"]
