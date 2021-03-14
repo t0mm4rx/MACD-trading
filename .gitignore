@@ -4,4 +4,4 @@ __pycache__
 .DS_Store
 .env
 graphs/latest_analyse.png
-data/variables.pickle
+data/*.pickle
