@@ -1,6 +1,7 @@
 from lib.Data import Data
 from lib.Logger import Logger
 from lib.Exchange import Exchange
+import lib.config as config
 import datetime
 import time
 
@@ -39,6 +40,8 @@ class Bot:
 	database and the Dashboard. If you want to log custom metrics, use logger.custom. You will be able to create
 	visualizations in Grafana with this logs.
 
+	The config property is the dictionnary with the same name as the bot in the config.
+
 	The exchange property is an instance of Exchange. It allows you to interact with the actual markets.
 	"""
 
@@ -54,19 +57,27 @@ class Bot:
 		self.period_text = period
 		self.periods_needed = periods_needed
 		self.offset_seconds = 10
+		if (not self.name in config.get_config()):
+			print("❌ Cannot instantiate bot: no config entry")
+			exit(1)
+		self.config = config.get_config()[self.name]
+		if (not "capitalAllowed" in self.config):
+			print("❌ Cannot instantiate bot: no 'capitalAllowed' property")
+			exit(1)
 		try:
 			self.logger = Logger(self.name)
 		except:
 			print("❌ Cannot connect to the log DB, are you sure it's running?")
 			raise
 		self.data = Data(self.name)
-		self.exchange = Exchange(self.logger)
+		self.exchange = Exchange(self.logger, self.config['capitalAllowed'], self.ticker, self.period_text)
 		try:
 			self.period = period_matching[period]
 		except:
 			print("Available periods: 1m, 3m, 5m, 15m, 30m, 1h, 2h, 3h, 4h, 1d, 1w")
 			raise
 		self.logger.log("ℹ️", f"Bot {self.name} started with a period of {period}")
+		self.logger.log("ℹ️", f"Capital allowed: {self.config['capitalAllowed']}%")
 		self.setup()
 		self.preloop()
 

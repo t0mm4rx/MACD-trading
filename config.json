@@ -1,5 +1,6 @@
 {
-	"influxdb": "db",
-	"tweet": false,
-	"passive": false
+	"MACD": {
+		"active": true,
+		"capitalAllowed": 60
+	}
 }

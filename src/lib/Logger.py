@@ -16,7 +16,7 @@ class Logger:
 		"""
 		self.name = name
 		self.client = influxdb.InfluxDBClient(
-			host=config.get_config()['influxdb'], username=config.get_creds()['influxdb']['user'], password=config.get_creds()['influxdb']['password']
+			host="db", username=config.get_creds()['influxdb']['user'], password=config.get_creds()['influxdb']['password']
 		)
 		dbs = self.client.get_list_database()
 		found = False
