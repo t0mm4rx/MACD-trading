@@ -48,13 +48,16 @@ class Exchange:
 		data['volume'] = candles[:, 5]
 		return data
 
-	def buy(self, ticker=None, amount=100):
+	def buy(self, ticker=None, amount=100, max_try=3):
 		"""Buy the given ticker.
 
 		- ticker: string, the ticker formatted like that: ASSET1/ASSET2, optional if default is set
 		- amount: int, percentage of the capital allowed to the bot to buy with, optional
 		Returns a trade object.
 		"""
+		if (max_try <= 0):
+			self.logger.log("❌", "Failed 3 times to buy, giving up")
+			return None
 		if (ticker is None):
 			ticker = self.default_ticker
 		asset1 = ticker.split("/")[0]
@@ -74,15 +77,18 @@ class Exchange:
 			traceback.print_exc()
 			self.logger.log("❌", "Cannot buy, retrying in 3 seconds")
 			time.sleep(3)
-			return self.buy(ticker, amount)
+			return self.buy(ticker, amount, max_try - 1)
 
-	def sell(self, ticker=None, amount=100):
+	def sell(self, ticker=None, amount=100, max_try=3):
 		"""Sell the given ticker.
 
 		- ticker: string, the ticker formatted like that: ASSET1/ASSET2, optional if default is set
 		- amount: int, percentage of the asset to sell, optional
 		Returns a trade object.
 		"""
+		if (max_try <= 0):
+			self.logger.log("❌", "Failed 3 times to sell, giving up")
+			return None
 		if (ticker is None):
 			ticker = self.default_ticker
 		asset1 = ticker.split("/")[0]
@@ -99,7 +105,7 @@ class Exchange:
 			traceback.print_exc()
 			self.logger.log("❌", "Cannot sell, retrying in 3 seconds")
 			time.sleep(3)
-			return self.sell(ticker, amount)
+			return self.sell(ticker, amount, max_try - 1)
 
 	def get_balance(self, asset=None):
 		"""Get the balance of the account for the given asset.
