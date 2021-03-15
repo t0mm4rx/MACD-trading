@@ -10,29 +10,33 @@ class Logger:
 
 	db_name = "cryptotrading"
 
-	def __init__(self, name):
+	def __init__(self, name, live_mode):
 		"""Connect to the DB, create the table if it doesn't exist yet.
 
 		- name: string, the name of the bot which will be logging
 		"""
 		self.name = name
-		self.client = influxdb.InfluxDBClient(
-			host="db", username=config.get_creds()['influxdb']['user'], password=config.get_creds()['influxdb']['password']
-		)
-		dbs = self.client.get_list_database()
-		found = False
-		for db in dbs:
-			if (db['name'] == self.db_name):
-				found = True
-		if (not found):
-			self.client.create_database(self.db_name)
-		self.client.switch_database(self.db_name)
+		self.live_mode = live_mode
+		if (self.live_mode):
+			self.client = influxdb.InfluxDBClient(
+				host="db", username=config.get_creds()['influxdb']['user'], password=config.get_creds()['influxdb']['password']
+			)
+			dbs = self.client.get_list_database()
+			found = False
+			for db in dbs:
+				if (db['name'] == self.db_name):
+					found = True
+			if (not found):
+				self.client.create_database(self.db_name)
+			self.client.switch_database(self.db_name)
 
 	def price(self, price):
 		"""Log the latest asset price. It will be called automatically by the Bot class.
 
 		- price: float, the current price of the traded asset
 		"""
+		if (not self.live_mode):
+			return
 		try:
 			self.client.write_points([{
 				"measurement": "asset_price",
@@ -55,6 +59,8 @@ class Logger:
 		- message: the message to log
 		"""
 		print(f"{emoji} {message}")
+		if (not self.live_mode):
+			return
 		try:
 			self.client.write_points([{
 				"measurement": "log",
@@ -82,6 +88,8 @@ class Logger:
 			'macd_long': value_long,
 		})
 		"""
+		if (not self.live_mode):
+			return
 		try:
 			self.client.write_points([{
 				"measurement": name,
@@ -100,6 +108,8 @@ class Logger:
 		- balance: float, the balance quantity
 		- currency: string, the balance currency, optional
 		"""
+		if (not self.live_mode):
+			return
 		try:
 			self.client.write_points([{
 				"measurement": "balance",
@@ -124,6 +134,8 @@ class Logger:
 		Example: you're trading on BTC/USDT, you buy at 1000$ and you sell at 1100$. The percentage will
 		be 0.1 and the currency profit 100$.
 		"""
+		if (not self.live_mode):
+			return
 		try:
 			self.client.write_points([{
 				"measurement": "pnl",
@@ -152,6 +164,8 @@ class Logger:
 		Example: you sell BTC at 2230$ with 30$
 		self.logger.order('sell', 2230, 30)
 		"""
+		if (not self.live_mode):
+			return
 		try:
 			self.client.write_points([{
 				"measurement": "order",

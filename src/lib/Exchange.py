@@ -9,7 +9,7 @@ class Exchange:
 	"""This class is used to interact with the market. It's a wrapper for a ccxt exchange object.
 	"""
 
-	def __init__(self, logger, capital_allowed, default_ticker=None, default_period=None):
+	def __init__(self, logger, capital_allowed, live_mode, default_ticker=None, default_period=None):
 		"""
 		- logger: a Logger instance linked to a bot
 		"""
@@ -17,7 +17,9 @@ class Exchange:
 		self.capital_allowed = capital_allowed
 		self.default_ticker = default_ticker
 		self.default_period = default_period
-		self.client = ccxt.binance(config.get_creds()['binance'])
+		self.live_mode = live_mode
+		if (self.live_mode):
+			self.client = ccxt.binance(config.get_creds()['binance'])
 
 	def get_latest_data(self, ticker=None, period=None, length=0):
 		"""Fetch the latest data for the given ticker. It will return at least lenth candles.
@@ -48,6 +50,9 @@ class Exchange:
 		data['volume'] = candles[:, 5]
 		return data
 
+	def fake_buy(self, ticker, amount):
+		pass
+
 	def buy(self, ticker=None, amount=100, max_try=3):
 		"""Buy the given ticker.
 
@@ -60,6 +65,8 @@ class Exchange:
 			return None
 		if (ticker is None):
 			ticker = self.default_ticker
+		if (not self.live_mode):
+			return self.fake_buy(ticker, amount)
 		asset1 = ticker.split("/")[0]
 		asset2 = ticker.split("/")[1]
 		balance = self.get_balance(asset2)
@@ -79,6 +86,9 @@ class Exchange:
 			time.sleep(3)
 			return self.buy(ticker, amount, max_try - 1)
 
+	def fake_sell(self, ticker, amount):
+		pass
+
 	def sell(self, ticker=None, amount=100, max_try=3):
 		"""Sell the given ticker.
 
@@ -91,6 +101,8 @@ class Exchange:
 			return None
 		if (ticker is None):
 			ticker = self.default_ticker
+		if (not self.live_mode):
+			return self.fake_sell(ticker, amount)
 		asset1 = ticker.split("/")[0]
 		asset2 = ticker.split("/")[1]
 		balance = self.get_balance(asset1)
@@ -113,6 +125,8 @@ class Exchange:
 		- asset: string, the asset to check, optional if default is set
 		Returns the current asset balance as float.
 		"""
+		if (not self.live_mode):
+			return None
 		if (asset is None):
 			asset = self.default_ticker.split("/")[1]
 		try:

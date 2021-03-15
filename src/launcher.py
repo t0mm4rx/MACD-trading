@@ -21,4 +21,4 @@ except:
 	print("Make sure your have a class {sys.argv[1]} in a file called {sys.argv[1]}.py in the src directory")
 	exit(1)
 
-bot_class()
+bot_class(live_mode=True)

@@ -43,15 +43,20 @@ class Bot:
 	The config property is the dictionnary with the same name as the bot in the config.
 
 	The exchange property is an instance of Exchange. It allows you to interact with the actual markets.
+
+	The live_mode property indicates if the bot should loop and receive live data. Use it only to test your bot
+	live. If you want to backtrack or test your algorithm, leave live_mode = False.
+	When live_mode is False, the logger won't log to the DB, and the exchange actions will be simulated.
 	"""
 
-	def __init__(self, name, ticker, period, periods_needed=None):
+	def __init__(self, name, ticker, period, live_mode, periods_needed=None):
 		"""
 		- name: string, the name of the bot
 		- ticker: string, the ticker formatted like that: ASSET1/ASSET2
 		- period: string, the period on which the loop will be set, and the resolution of the candles.
 		- periods_needed: int, the number of candles you will get every loop.
 		"""
+		self.live_mode = live_mode
 		self.name = name
 		self.ticker = ticker
 		self.period_text = period
@@ -65,12 +70,12 @@ class Bot:
 			print("❌ Cannot instantiate bot: no 'capitalAllowed' property")
 			exit(1)
 		try:
-			self.logger = Logger(self.name)
+			self.logger = Logger(self.name, live_mode)
 		except:
 			print("❌ Cannot connect to the log DB, are you sure it's running?")
 			raise
 		self.data = Data(self.name)
-		self.exchange = Exchange(self.logger, self.config['capitalAllowed'], self.ticker, self.period_text)
+		self.exchange = Exchange(self.logger, self.config['capitalAllowed'], live_mode, self.ticker, self.period_text)
 		try:
 			self.period = period_matching[period]
 		except:
@@ -79,7 +84,8 @@ class Bot:
 		self.logger.log("ℹ️", f"Bot {self.name} started with a period of {period}")
 		self.logger.log("ℹ️", f"Capital allowed: {self.config['capitalAllowed']}%")
 		self.setup()
-		self.preloop()
+		if (self.live_mode):
+			self.preloop()
 
 	def preloop(self):
 		"""Waits for the selected period to begin. We use UTC time.

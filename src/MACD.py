@@ -2,8 +2,8 @@ from lib.Bot import Bot
 
 class MACD(Bot):
 
-	def __init__(self):
-		super().__init__("MACD", "BTC/USDT", "1m")
+	def __init__(self, live_mode):
+		super().__init__("MACD", "BTC/USDT", "1m", live_mode)
 
 	def setup(self):
 		if (self.data.get("open_position")):
