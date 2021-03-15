@@ -14,11 +14,11 @@
 	},
 	"editable": true,
 	"gnetId": null,
-	"graphTooltip": 1,
+	"graphTooltip": 0,
 	"links": [],
 	"panels": [
 	  {
-		"datasource": "MACD Bot",
+		"datasource": "Database",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -29,8 +29,8 @@
 			  "axisPlacement": "auto",
 			  "barAlignment": 0,
 			  "drawStyle": "line",
-			  "fillOpacity": 47,
-			  "gradientMode": "opacity",
+			  "fillOpacity": 10,
+			  "gradientMode": "none",
 			  "hideFrom": {
 				"graph": false,
 				"legend": false,
@@ -43,7 +43,7 @@
 				"type": "linear"
 			  },
 			  "showPoints": "never",
-			  "spanNulls": false
+			  "spanNulls": true
 			},
 			"decimals": 3,
 			"mappings": [],
@@ -65,8 +65,8 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 12,
-		  "w": 15,
+		  "h": 11,
+		  "w": 13,
 		  "x": 0,
 		  "y": 0
 		},
@@ -74,37 +74,19 @@
 		"options": {
 		  "graph": {},
 		  "legend": {
-			"calcs": [
-			  "mean",
-			  "lastNotNull",
-			  "max",
-			  "min"
-			],
+			"calcs": [],
 			"displayMode": "list",
 			"placement": "bottom"
 		  },
 		  "tooltipOptions": {
-			"mode": "multi"
+			"mode": "single"
 		  }
 		},
 		"pluginVersion": "7.4.3",
 		"targets": [
 		  {
-			"groupBy": [
-			  {
-				"params": [
-				  "$__interval"
-				],
-				"type": "time"
-			  },
-			  {
-				"params": [
-				  "linear"
-				],
-				"type": "fill"
-			  }
-			],
-			"measurement": "price",
+			"groupBy": [],
+			"measurement": "asset_price",
 			"orderByTime": "ASC",
 			"policy": "default",
 			"queryType": "randomWalk",
@@ -114,31 +96,30 @@
 			  [
 				{
 				  "params": [
-					"value"
+					"price"
 				  ],
 				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
 				}
 			  ]
 			],
-			"tags": []
+			"tags": [
+			  {
+				"key": "bot",
+				"operator": "=",
+				"value": "MACD"
+			  }
+			]
 		  }
 		],
-		"timeFrom": null,
-		"timeShift": null,
-		"title": "BTC price 5m",
-		"transparent": true,
+		"title": "BTC price 1m",
 		"type": "timeseries"
 	  },
 	  {
-		"datasource": "MACD Bot",
+		"datasource": "Database",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
-			  "mode": "fixed"
+			  "mode": "thresholds"
 			},
 			"custom": {
 			  "align": null,
@@ -163,61 +144,33 @@
 			{
 			  "matcher": {
 				"id": "byName",
+				"options": "Time"
+			  },
+			  "properties": [
+				{
+				  "id": "custom.width",
+				  "value": 160
+				}
+			  ]
+			},
+			{
+			  "matcher": {
+				"id": "byName",
 				"options": "emoji"
 			  },
 			  "properties": [
 				{
 				  "id": "custom.width",
-				  "value": 20
-				},
-				{
-				  "id": "custom.align",
-				  "value": "center"
-				}
-			  ]
-			},
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "Time"
-			  },
-			  "properties": [
-				{
-				  "id": "custom.width",
-				  "value": 200
-				}
-			  ]
-			},
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "Time"
-			  },
-			  "properties": [
-				{
-				  "id": "custom.align",
-				  "value": "center"
-				}
-			  ]
-			},
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "message"
-			  },
-			  "properties": [
-				{
-				  "id": "custom.width",
-				  "value": 800
+				  "value": 58
 				}
 			  ]
 			}
 		  ]
 		},
 		"gridPos": {
-		  "h": 12,
-		  "w": 9,
-		  "x": 15,
+		  "h": 11,
+		  "w": 11,
+		  "x": 13,
 		  "y": 0
 		},
 		"id": 4,
@@ -253,15 +206,20 @@
 				}
 			  ]
 			],
-			"tags": []
+			"tags": [
+			  {
+				"key": "bot",
+				"operator": "=",
+				"value": "MACD"
+			  }
+			]
 		  }
 		],
 		"title": "Logs",
-		"transformations": [],
 		"type": "table"
 	  },
 	  {
-		"datasource": "MACD Bot",
+		"datasource": "Database",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -272,7 +230,7 @@
 			  "axisPlacement": "auto",
 			  "barAlignment": 0,
 			  "drawStyle": "line",
-			  "fillOpacity": 0,
+			  "fillOpacity": 10,
 			  "gradientMode": "none",
 			  "hideFrom": {
 				"graph": false,
@@ -280,148 +238,13 @@
 				"tooltip": false
 			  },
 			  "lineInterpolation": "linear",
-			  "lineStyle": {
-				"fill": "solid"
-			  },
 			  "lineWidth": 1,
-			  "pointSize": 2,
+			  "pointSize": 5,
 			  "scaleDistribution": {
 				"type": "linear"
 			  },
 			  "showPoints": "never",
-			  "spanNulls": false
-			},
-			"mappings": [],
-			"thresholds": {
-			  "mode": "absolute",
-			  "steps": [
-				{
-				  "color": "green",
-				  "value": null
-				}
-			  ]
-			},
-			"unit": "short"
-		  },
-		  "overrides": [
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "MACD"
-			  },
-			  "properties": [
-				{
-				  "id": "color",
-				  "value": {
-					"fixedColor": "dark-blue",
-					"mode": "fixed"
-				  }
-				}
-			  ]
-			},
-			{
-			  "matcher": {
-				"id": "byName",
-				"options": "MACD9"
-			  },
-			  "properties": [
-				{
-				  "id": "color",
-				  "value": {
-					"fixedColor": "dark-orange",
-					"mode": "fixed"
-				  }
-				}
-			  ]
-			}
-		  ]
-		},
-		"gridPos": {
-		  "h": 8,
-		  "w": 15,
-		  "x": 0,
-		  "y": 12
-		},
-		"id": 6,
-		"options": {
-		  "graph": {},
-		  "legend": {
-			"calcs": [],
-			"displayMode": "list",
-			"placement": "bottom"
-		  },
-		  "tooltipOptions": {
-			"mode": "multi"
-		  }
-		},
-		"pluginVersion": "7.4.3",
-		"targets": [
-		  {
-			"groupBy": [
-			  {
-				"params": [
-				  "$__interval"
-				],
-				"type": "time"
-			  },
-			  {
-				"params": [
-				  "linear"
-				],
-				"type": "fill"
-			  }
-			],
-			"measurement": "price",
-			"orderByTime": "ASC",
-			"policy": "default",
-			"queryType": "randomWalk",
-			"refId": "A",
-			"resultFormat": "time_series",
-			"select": [
-			  [
-				{
-				  "params": [
-					"macd"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"macd9"
-				  ],
-				  "type": "field"
-				},
-				{
-				  "params": [],
-				  "type": "mean"
-				}
-			  ]
-			],
-			"tags": []
-		  }
-		],
-		"timeFrom": null,
-		"timeShift": null,
-		"title": "Computed MACD",
-		"transparent": true,
-		"type": "timeseries"
-	  },
-	  {
-		"datasource": "MACD Bot",
-		"fieldConfig": {
-		  "defaults": {
-			"color": {
-			  "mode": "thresholds"
-			},
-			"custom": {
-			  "align": null,
-			  "filterable": false
+			  "spanNulls": true
 			},
 			"mappings": [],
 			"thresholds": {
@@ -443,106 +266,27 @@
 		},
 		"gridPos": {
 		  "h": 8,
-		  "w": 9,
-		  "x": 15,
-		  "y": 12
-		},
-		"id": 10,
-		"options": {
-		  "showHeader": true
-		},
-		"pluginVersion": "7.4.3",
-		"targets": [
-		  {
-			"groupBy": [],
-			"measurement": "pnl",
-			"orderByTime": "ASC",
-			"policy": "default",
-			"queryType": "randomWalk",
-			"refId": "A",
-			"resultFormat": "logs",
-			"select": [
-			  [
-				{
-				  "params": [
-					"usdt"
-				  ],
-				  "type": "field"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"percentage"
-				  ],
-				  "type": "field"
-				}
-			  ],
-			  [
-				{
-				  "params": [
-					"true_percentage"
-				  ],
-				  "type": "field"
-				}
-			  ]
-			],
-			"tags": []
-		  }
-		],
-		"title": "PNL",
-		"type": "table"
-	  },
-	  {
-		"aliasColors": {},
-		"bars": false,
-		"dashLength": 10,
-		"dashes": false,
-		"datasource": "MACD Bot",
-		"fieldConfig": {
-		  "defaults": {
-			"custom": {}
-		  },
-		  "overrides": []
-		},
-		"fill": 1,
-		"fillGradient": 0,
-		"gridPos": {
-		  "h": 8,
-		  "w": 15,
+		  "w": 13,
 		  "x": 0,
-		  "y": 20
+		  "y": 11
 		},
-		"hiddenSeries": false,
-		"id": 14,
-		"legend": {
-		  "avg": false,
-		  "current": false,
-		  "max": false,
-		  "min": false,
-		  "show": true,
-		  "total": false,
-		  "values": false
-		},
-		"lines": true,
-		"linewidth": 1,
-		"nullPointMode": "null",
+		"id": 6,
 		"options": {
-		  "alertThreshold": true
+		  "graph": {},
+		  "legend": {
+			"calcs": [],
+			"displayMode": "list",
+			"placement": "bottom"
+		  },
+		  "tooltipOptions": {
+			"mode": "single"
+		  }
 		},
-		"percentage": false,
 		"pluginVersion": "7.4.3",
-		"pointradius": 2,
-		"points": false,
-		"renderer": "flot",
-		"seriesOverrides": [],
-		"spaceLength": 10,
-		"stack": false,
-		"steppedLine": false,
 		"targets": [
 		  {
 			"groupBy": [],
-			"measurement": "pnl",
+			"measurement": "macd",
 			"orderByTime": "ASC",
 			"policy": "default",
 			"queryType": "randomWalk",
@@ -552,64 +296,34 @@
 			  [
 				{
 				  "params": [
-					"percentage"
+					"macd_long"
 				  ],
 				  "type": "field"
-				},
+				}
+			  ],
+			  [
 				{
-				  "params": [],
-				  "type": "cumulative_sum"
+				  "params": [
+					"macd_short"
+				  ],
+				  "type": "field"
 				}
 			  ]
 			],
-			"tags": []
+			"tags": [
+			  {
+				"key": "bot",
+				"operator": "=",
+				"value": "MACD"
+			  }
+			]
 		  }
 		],
-		"thresholds": [],
-		"timeFrom": null,
-		"timeRegions": [],
-		"timeShift": null,
-		"title": "Total PNL",
-		"tooltip": {
-		  "shared": true,
-		  "sort": 0,
-		  "value_type": "individual"
-		},
-		"type": "graph",
-		"xaxis": {
-		  "buckets": null,
-		  "mode": "time",
-		  "name": null,
-		  "show": true,
-		  "values": []
-		},
-		"yaxes": [
-		  {
-			"$$hashKey": "object:497",
-			"format": "short",
-			"label": null,
-			"logBase": 1,
-			"max": null,
-			"min": null,
-			"show": true
-		  },
-		  {
-			"$$hashKey": "object:498",
-			"format": "short",
-			"label": null,
-			"logBase": 1,
-			"max": null,
-			"min": null,
-			"show": true
-		  }
-		],
-		"yaxis": {
-		  "align": false,
-		  "alignLevel": null
-		}
+		"title": "MACD",
+		"type": "timeseries"
 	  },
 	  {
-		"datasource": "MACD Bot",
+		"datasource": "Database",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -629,17 +343,18 @@
 				  "value": 80
 				}
 			  ]
-			}
+			},
+			"unit": "short"
 		  },
 		  "overrides": []
 		},
 		"gridPos": {
 		  "h": 8,
-		  "w": 9,
-		  "x": 15,
-		  "y": 20
+		  "w": 11,
+		  "x": 13,
+		  "y": 11
 		},
-		"id": 12,
+		"id": 8,
 		"options": {
 		  "colorMode": "value",
 		  "graphMode": "area",
@@ -679,24 +394,20 @@
 				}
 			  ]
 			],
-			"tags": []
+			"tags": [
+			  {
+				"key": "bot",
+				"operator": "=",
+				"value": "MACD"
+			  }
+			]
 		  }
 		],
-		"title": "Total PNL",
-		"transformations": [
-		  {
-			"id": "reduce",
-			"options": {
-			  "includeTimeField": false,
-			  "mode": "seriesToRows",
-			  "reducers": []
-			}
-		  }
-		],
+		"title": "PNL",
 		"type": "stat"
 	  },
 	  {
-		"datasource": "MACD Bot",
+		"datasource": "Database",
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
@@ -706,7 +417,6 @@
 			  "align": null,
 			  "filterable": false
 			},
-			"decimals": 2,
 			"mappings": [],
 			"thresholds": {
 			  "mode": "absolute",
@@ -722,15 +432,28 @@
 			  ]
 			}
 		  },
-		  "overrides": []
+		  "overrides": [
+			{
+			  "matcher": {
+				"id": "byName",
+				"options": "Time"
+			  },
+			  "properties": [
+				{
+				  "id": "custom.width",
+				  "value": 163
+				}
+			  ]
+			}
+		  ]
 		},
 		"gridPos": {
-		  "h": 10,
-		  "w": 15,
+		  "h": 8,
+		  "w": 13,
 		  "x": 0,
-		  "y": 28
+		  "y": 19
 		},
-		"id": 8,
+		"id": 10,
 		"options": {
 		  "showHeader": true,
 		  "sortBy": []
@@ -771,10 +494,94 @@
 				}
 			  ]
 			],
-			"tags": []
+			"tags": [
+			  {
+				"key": "bot",
+				"operator": "=",
+				"value": "MACD"
+			  }
+			]
 		  }
 		],
 		"title": "Orders",
+		"type": "table"
+	  },
+	  {
+		"datasource": "Database",
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "align": null,
+			  "filterable": false
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 8,
+		  "w": 11,
+		  "x": 13,
+		  "y": 19
+		},
+		"id": 12,
+		"options": {
+		  "showHeader": true
+		},
+		"pluginVersion": "7.4.3",
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "pnl",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"queryType": "randomWalk",
+			"refId": "A",
+			"resultFormat": "table",
+			"select": [
+			  [
+				{
+				  "params": [
+					"percentage"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"currency"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": [
+			  {
+				"key": "bot",
+				"operator": "=",
+				"value": "MACD"
+			  }
+			]
+		  }
+		],
+		"title": "PNL history",
 		"type": "table"
 	  }
 	],
@@ -786,12 +593,12 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-2d",
+	  "from": "now-30m",
 	  "to": "now"
 	},
 	"timepicker": {},
-	"timezone": "",
+	"timezone": "utc",
 	"title": "MACD bot",
-	"uid": "j7UVZbUMz",
+	"uid": "OVKZGCUMk",
 	"version": 1
   }

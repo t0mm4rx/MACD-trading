@@ -56,6 +56,7 @@ class Exchange:
 		try:
 			trade = self.client.create_market_buy_order(ticker, qty)
 			self.logger.log("💵", f"Bought {qty}{asset1} for {trade['price']}{asset2} with {amount}% of available {asset2}")
+			self.logger.order('buy', trade['price'], trade['cost'])
 			return trade
 		except:
 			self.logger.log("❌", "Cannot buy, retrying in 3 seconds")
@@ -76,6 +77,7 @@ class Exchange:
 		try:
 			trade = self.client.create_market_sell_order(ticker, qty)
 			self.logger.log("💵", f"Sold {qty}{asset1} ({amount}%) for {trade['price']}{asset2}")
+			self.logger.order('sell', trade['price'], trade['cost'])
 		except:
 			self.logger.log("❌", "Cannot sell, retrying in 3 seconds")
 			time.sleep(3)

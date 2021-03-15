@@ -4,8 +4,8 @@ datasources:
 -  access: 'proxy'
    editable: true
    is_default: true
-   name: 'MACD Bot'
-   database: 'macd_bot'
+   name: 'Database'
+   database: 'cryptotrading'
    org_id: 1
    type: 'influxdb'
    url: 'http://db:8086'

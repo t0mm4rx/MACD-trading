@@ -27,14 +27,14 @@ services:
           - 3000
         links:
           - db
-    test_bot:
+    macd_bot:
         build:
             context: .
             dockerfile: ./containers/bot/Dockerfile
         links:
           - db
         environment:
-          - BOT_CLASS=TestBot
+          - BOT_CLASS=MACD
         env_file:
           - .env
         restart: always

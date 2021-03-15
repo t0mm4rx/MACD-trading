@@ -132,3 +132,31 @@ class Logger:
 			}])
 		except:
 			print("❌ Cannot log pnl to the database")
+
+	def order(self, way, price, cost):
+		"""Logs an order on the market.
+
+		- way: string, 'buy' or 'sell'
+		- price: float, the order asset price
+		- cost: float, what you paid or received
+
+		Example: you buy BTC at 2113$ with 20$
+		self.logger.order('buy', 2113, 20)
+
+		Example: you sell BTC at 2230$ with 30$
+		self.logger.order('sell', 2230, 30)
+		"""
+		try:
+			self.client.write_points([{
+				"measurement": "order",
+				"fields": {
+					"way": way,
+					"price": price,
+					"cost": cost
+				},
+				"tags": {
+					"bot": self.name
+				}
+			}])
+		except:
+			print("❌ Cannot log order to the database")
