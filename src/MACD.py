@@ -6,7 +6,8 @@ class MACD(Bot):
 		super().__init__("MACD", "BTC/USDT", "1m")
 
 	def setup(self):
-		pass
+		if (self.data.get("open_position")):
+			self.logger.log("❗️", "Bot started with an open position")
 
 	def compute(self, candles):
 

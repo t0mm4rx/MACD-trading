@@ -1,6 +1,6 @@
 {
 	"MACD": {
 		"active": true,
-		"capitalAllowed": 60
+		"capitalAllowed": 80
 	}
 }

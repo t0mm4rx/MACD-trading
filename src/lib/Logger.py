@@ -1,5 +1,6 @@
 import influxdb
 import lib.config as config
+import traceback
 
 class Logger:
 	"""This class is used to log data to the console and to the database.
@@ -36,13 +37,14 @@ class Logger:
 			self.client.write_points([{
 				"measurement": "asset_price",
 				"fields": {
-					"price": price
+					"price": float(price)
 				},
 				"tags": {
 					"bot": self.name
 				}
 			}])
 		except:
+			traceback.print_exc()
 			print("❌ Cannot log price to the database")
 
 	def log(self, emoji, message):
@@ -65,6 +67,7 @@ class Logger:
 				}
 			}])
 		except:
+			traceback.print_exc()
 			print("❌ Cannot log to the database")
 
 	def custom(self, name, fields):
@@ -88,6 +91,7 @@ class Logger:
 				}
 			}])
 		except:
+			traceback.print_exc()
 			print("❌ Cannot log custom event to the database")
 
 	def balance(self, balance, currency="USDT"):
@@ -100,7 +104,7 @@ class Logger:
 			self.client.write_points([{
 				"measurement": "balance",
 				"fields": {
-					"balance": balance,
+					"balance": float(balance),
 					"currency": currency
 				},
 				"tags": {
@@ -108,6 +112,7 @@ class Logger:
 				}
 			}])
 		except:
+			traceback.print_exc()
 			print("❌ Cannot log balance to the database")
 
 	def pnl(self, percentage, currency):
@@ -123,7 +128,7 @@ class Logger:
 			self.client.write_points([{
 				"measurement": "pnl",
 				"fields": {
-					"percentage": percentage,
+					"percentage": float(percentage),
 					"currency": currency
 				},
 				"tags": {
@@ -131,6 +136,7 @@ class Logger:
 				}
 			}])
 		except:
+			traceback.print_exc()
 			print("❌ Cannot log pnl to the database")
 
 	def order(self, way, price, cost):
@@ -151,12 +157,13 @@ class Logger:
 				"measurement": "order",
 				"fields": {
 					"way": way,
-					"price": price,
-					"cost": cost
+					"price": float(price),
+					"cost": float(cost)
 				},
 				"tags": {
 					"bot": self.name
 				}
 			}])
 		except:
+			traceback.print_exc()
 			print("❌ Cannot log order to the database")

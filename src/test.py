@@ -4,9 +4,11 @@ import time
 
 log = Logger("MACD")
 
-exchange = Exchange(log, 10, "BTC/USDT", "1m")
-exchange.buy()
-exchange.sell()
+log.balance(100, "USDT")
+
+# exchange = Exchange(log, 10, "BTC/USDT", "1m")
+# exchange.buy()
+# exchange.sell()
 
 # log.order('buy', 60123, 31)
 # time.sleep(10)

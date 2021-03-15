@@ -1,0 +1,364 @@
+{
+	"annotations": {
+	  "list": [
+		{
+		  "builtIn": 1,
+		  "datasource": "-- Grafana --",
+		  "enable": true,
+		  "hide": true,
+		  "iconColor": "rgba(0, 211, 255, 1)",
+		  "name": "Annotations & Alerts",
+		  "type": "dashboard"
+		}
+	  ]
+	},
+	"editable": true,
+	"gnetId": null,
+	"graphTooltip": 0,
+	"links": [],
+	"panels": [
+	  {
+		"aliasColors": {},
+		"bars": false,
+		"dashLength": 10,
+		"dashes": false,
+		"datasource": "Database",
+		"fieldConfig": {
+		  "defaults": {
+			"custom": {},
+			"unit": "currencyUSD"
+		  },
+		  "overrides": []
+		},
+		"fill": 1,
+		"fillGradient": 0,
+		"gridPos": {
+		  "h": 9,
+		  "w": 12,
+		  "x": 0,
+		  "y": 0
+		},
+		"hiddenSeries": false,
+		"id": 2,
+		"legend": {
+		  "avg": false,
+		  "current": false,
+		  "max": false,
+		  "min": false,
+		  "show": true,
+		  "total": false,
+		  "values": false
+		},
+		"lines": true,
+		"linewidth": 1,
+		"nullPointMode": "null",
+		"options": {
+		  "alertThreshold": true
+		},
+		"percentage": false,
+		"pluginVersion": "7.4.3",
+		"pointradius": 2,
+		"points": false,
+		"renderer": "flot",
+		"seriesOverrides": [],
+		"spaceLength": 10,
+		"stack": false,
+		"steppedLine": false,
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "balance",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"queryType": "randomWalk",
+			"refId": "A",
+			"resultFormat": "time_series",
+			"select": [
+			  [
+				{
+				  "params": [
+					"balance"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": []
+		  }
+		],
+		"thresholds": [],
+		"timeFrom": null,
+		"timeRegions": [],
+		"timeShift": null,
+		"title": "Balance",
+		"tooltip": {
+		  "shared": true,
+		  "sort": 0,
+		  "value_type": "individual"
+		},
+		"type": "graph",
+		"xaxis": {
+		  "buckets": null,
+		  "mode": "time",
+		  "name": null,
+		  "show": true,
+		  "values": []
+		},
+		"yaxes": [
+		  {
+			"$$hashKey": "object:378",
+			"format": "currencyUSD",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  },
+		  {
+			"$$hashKey": "object:379",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  }
+		],
+		"yaxis": {
+		  "align": false,
+		  "alignLevel": null
+		}
+	  },
+	  {
+		"aliasColors": {},
+		"bars": false,
+		"dashLength": 10,
+		"dashes": false,
+		"datasource": "Database",
+		"fieldConfig": {
+		  "defaults": {
+			"custom": {}
+		  },
+		  "overrides": []
+		},
+		"fill": 1,
+		"fillGradient": 0,
+		"gridPos": {
+		  "h": 9,
+		  "w": 12,
+		  "x": 12,
+		  "y": 0
+		},
+		"hiddenSeries": false,
+		"id": 4,
+		"legend": {
+		  "avg": false,
+		  "current": false,
+		  "max": false,
+		  "min": false,
+		  "show": true,
+		  "total": false,
+		  "values": false
+		},
+		"lines": true,
+		"linewidth": 1,
+		"nullPointMode": "null",
+		"options": {
+		  "alertThreshold": true
+		},
+		"percentage": false,
+		"pluginVersion": "7.4.3",
+		"pointradius": 2,
+		"points": false,
+		"renderer": "flot",
+		"seriesOverrides": [],
+		"spaceLength": 10,
+		"stack": false,
+		"steppedLine": false,
+		"targets": [
+		  {
+			"groupBy": [],
+			"measurement": "pnl",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"queryType": "randomWalk",
+			"refId": "A",
+			"resultFormat": "time_series",
+			"select": [
+			  [
+				{
+				  "params": [
+					"percentage"
+				  ],
+				  "type": "field"
+				},
+				{
+				  "params": [],
+				  "type": "cumulative_sum"
+				}
+			  ]
+			],
+			"tags": []
+		  }
+		],
+		"thresholds": [],
+		"timeFrom": null,
+		"timeRegions": [],
+		"timeShift": null,
+		"title": "PNL",
+		"tooltip": {
+		  "shared": true,
+		  "sort": 0,
+		  "value_type": "individual"
+		},
+		"type": "graph",
+		"xaxis": {
+		  "buckets": null,
+		  "mode": "time",
+		  "name": null,
+		  "show": true,
+		  "values": []
+		},
+		"yaxes": [
+		  {
+			"$$hashKey": "object:584",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  },
+		  {
+			"$$hashKey": "object:585",
+			"format": "short",
+			"label": null,
+			"logBase": 1,
+			"max": null,
+			"min": null,
+			"show": true
+		  }
+		],
+		"yaxis": {
+		  "align": false,
+		  "alignLevel": null
+		}
+	  },
+	  {
+		"datasource": "Database",
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "align": null,
+			  "filterable": false
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": [
+			{
+			  "matcher": {
+				"id": "byName",
+				"options": "Time"
+			  },
+			  "properties": [
+				{
+				  "id": "custom.width",
+				  "value": 153
+				}
+			  ]
+			}
+		  ]
+		},
+		"gridPos": {
+		  "h": 8,
+		  "w": 12,
+		  "x": 0,
+		  "y": 9
+		},
+		"id": 6,
+		"options": {
+		  "showHeader": true,
+		  "sortBy": []
+		},
+		"pluginVersion": "7.4.3",
+		"targets": [
+		  {
+			"groupBy": [
+			  {
+				"params": [
+				  "bot"
+				],
+				"type": "tag"
+			  }
+			],
+			"measurement": "order",
+			"orderByTime": "ASC",
+			"policy": "default",
+			"queryType": "randomWalk",
+			"refId": "A",
+			"resultFormat": "logs",
+			"select": [
+			  [
+				{
+				  "params": [
+					"way"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"price"
+				  ],
+				  "type": "field"
+				}
+			  ],
+			  [
+				{
+				  "params": [
+					"cost"
+				  ],
+				  "type": "field"
+				}
+			  ]
+			],
+			"tags": []
+		  }
+		],
+		"title": "Orders",
+		"type": "table"
+	  }
+	],
+	"schemaVersion": 27,
+	"style": "dark",
+	"tags": [],
+	"templating": {
+	  "list": []
+	},
+	"time": {
+	  "from": "now-6h",
+	  "to": "now"
+	},
+	"timepicker": {},
+	"timezone": "",
+	"title": "Global performance",
+	"uid": "cNwwvj8Gk",
+	"version": 1
+  }
