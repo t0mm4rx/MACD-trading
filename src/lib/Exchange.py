@@ -67,9 +67,8 @@ class Exchange:
 		try:
 			self.logger.log("ℹ️", f"Buying {qty}{asset1}")
 			trade = self.client.create_market_buy_order(ticker, qty)
-			self.logger.log("💵", f"Bought {qty}{asset1} for {trade['price']}{asset2} with {amount}% of available {asset2}")
+			self.logger.log("💵", f"Bought {qty}{asset1} for {trade['price']:.2f}{asset2} with {amount}% of available {asset2}")
 			self.logger.order('buy', trade['price'], trade['cost'])
-			self.logger.balance(self.get_balance(asset2), asset2)
 			return trade
 		except:
 			traceback.print_exc()
@@ -88,13 +87,13 @@ class Exchange:
 			ticker = self.default_ticker
 		asset1 = ticker.split("/")[0]
 		asset2 = ticker.split("/")[1]
-		balance = self.get_balance(asset2)
-		qty = balance * (amount/100)
+		balance = self.get_balance(asset1)
+		qty = balance * (amount / 100)
 		try:
+			self.logger.log("ℹ️", f"Selling {qty}{asset1}")
 			trade = self.client.create_market_sell_order(ticker, qty)
 			self.logger.log("💵", f"Sold {qty}{asset1} ({amount}%) for {trade['price']}{asset2}")
 			self.logger.order('sell', trade['price'], trade['cost'])
-			self.logger.balance(self.get_balance(asset2), asset2)
 			return trade
 		except:
 			traceback.print_exc()

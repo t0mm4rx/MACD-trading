@@ -59,8 +59,8 @@ class Logger:
 			self.client.write_points([{
 				"measurement": "log",
 				"fields": {
-					"emoji": emoji,
-					"message": message
+					"emoji": str(emoji),
+					"message": str(message)
 				},
 				"tags": {
 					"bot": self.name

@@ -42,14 +42,15 @@ class MACD(Bot):
 		# Buy or sell if the decision is
 		if (should_buy and not self.data.get("open_position") and self.config['active']):
 			self.data.set("open_position", True)
-			self.data.set("buy_trade", self.exchange.buy())
+			self.data.set("buy_balance", self.exchange.get_balance())
 
 		if (should_sell and self.data.get("open_position") and self.config['active']):
 			self.data.set("open_position", False)
-			buy_trade = self.data.get("buy_trade")
-			sell_trade = self.exchange.sell()
+			self.exchange.sell()
+			balance_diff = self.exchange.get_balance() - self.data.get("buy_balance")
 			self.logger.pnl(
-				(buy_trade['price'] - sell_trade['price']) / buy_trade['price'],
-				buy_trade['cost'] - sell_trade['cost']
+				balance_diff / self.data.get("buy_balance"),
+				balance_diff
 			)
-			self.data.remove("buy_trade")
+			self.logger.balance(self.exchange.get_balance())
+			self.data.remove("buy_balance")
