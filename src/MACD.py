@@ -43,6 +43,7 @@ class MACD(Bot):
 		if (should_buy and not self.data.get("open_position") and self.config['active']):
 			self.data.set("open_position", True)
 			self.data.set("buy_balance", self.exchange.get_balance())
+			self.exchange.buy()
 
 		if (should_sell and self.data.get("open_position") and self.config['active']):
 			self.data.set("open_position", False)
