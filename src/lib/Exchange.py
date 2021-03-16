@@ -79,8 +79,6 @@ class Exchange:
 			ticker = self.default_ticker
 		if (period is None):
 			period = self.default_period
-		if (not self.cache is None and not self.cache.get(f"{start_date}-{end_date}") is None):
-			return self.cache.get(f"{start_date}-{end_date}")
 		start = self.client.parse8601(start_date)
 		end = self.client.parse8601(end_date)
 
@@ -88,16 +86,20 @@ class Exchange:
 		last_date = start
 		while (last_date < end):
 			print(f"Downloading {datetime.utcfromtimestamp(last_date / 1000).isoformat()}")
-			new_candles = np.array(self.client.fetch_ohlcv(ticker, period, last_date))
+			if (not self.cache is None and not self.cache.get(last_date) is None):
+				new_candles = self.cache.get(last_date)
+				print("Found in cache")
+			else:
+				new_candles = np.array(self.client.fetch_ohlcv(ticker, period, last_date))
+				if (not self.cache is None):
+					self.cache.set(last_date, new_candles)
+				time.sleep(1)
 			if (candles is None):
 				candles = new_candles
 			else:
 				candles = np.vstack([candles, new_candles])
 			last_date = int(candles[-1][0])
-			time.sleep(1)
 		df = self.candles_to_df(candles)
-		if (not self.cache is None):
-			self.cache.set(f"{start_date}-{end_date}", df)
 		return df
 
 	def buy(self, ticker=None, max_try=3):

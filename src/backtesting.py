@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 bot = MACD(False)
 
-balance, pnl, hist = bot.backtest('2020-06-01T00:00:00', '2020-09-01T00:00:00')
+balance, pnl, hist = bot.backtest('2020-01-01T00:00:00', '2020-02-01T00:00:00')
 
 fig, ax = plt.subplots(figsize=(30, 10))
 ax.plot(hist['date'], hist['price'])

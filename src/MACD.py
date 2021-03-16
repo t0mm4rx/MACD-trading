@@ -32,11 +32,13 @@ class MACD(Bot):
 		should_buy = candles.iloc[-1]['crossover_buy'] or candles.iloc[-2]['crossover_buy']
 		should_sell = candles.iloc[-1]['crossover_sell'] or candles.iloc[-2]['crossover_sell']
 
-		# Stop loss
-		# if (self.data.get("open_position")):
-		# 	if (candles.iloc[-1]['low'] <= 0.98 * self.data.get("buy_price")):
-		# 		self.logger.log("❗️", "Stop loss triggered")
-		# 		should_sell = True
+		fig, ax = plt.subplots(figsize=(10, 5))
+		ax2 = ax.twinx()
+		ax.plot(candles['date'], candles['close'])
+		ax2.plot(candles['date'], candles['macd'])
+		ax2.plot(candles['date'], candles['macd9'])
+		fig.savefig('./graphs/tmp.png')
+		fig.clf()
 
 		# We log our calculations to monitor
 		self.logger.custom('macd', {
