@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 class MACD(Bot):
 
 	def __init__(self, live_mode):
-		super().__init__("MACD", "BTC/USDT", "1m", live_mode)
+		super().__init__("MACD", "BTC/USDT", "1h", live_mode)
 
 	def setup(self):
-		if (self.data.get("open_position")):
+		if (self.data.get("open_position") and self.live_mode):
 			self.logger.log("❗️", "Bot started with an open position")
 
 	def compute(self, candles):
@@ -32,6 +32,12 @@ class MACD(Bot):
 		should_buy = candles.iloc[-1]['crossover_buy'] or candles.iloc[-2]['crossover_buy']
 		should_sell = candles.iloc[-1]['crossover_sell'] or candles.iloc[-2]['crossover_sell']
 
+		# Stop loss
+		# if (self.data.get("open_position")):
+		# 	if (candles.iloc[-1]['low'] <= 0.98 * self.data.get("buy_price")):
+		# 		self.logger.log("❗️", "Stop loss triggered")
+		# 		should_sell = True
+
 		# We log our calculations to monitor
 		self.logger.custom('macd', {
 			'macd_short': candles.iloc[-1]['macd'],
@@ -46,8 +52,6 @@ class MACD(Bot):
 		# ax2.plot(candles['date'], candles['macd'])
 		# ax2.plot(candles['date'], candles['macd9'])
 		# plt.show()
-
-		# print(should_buy, should_sell)
 
 		# Buy or sell if the decision is
 		if (should_buy and not self.data.get("open_position") and self.config['active']):

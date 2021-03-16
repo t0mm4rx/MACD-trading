@@ -4,6 +4,7 @@ from lib.Exchange import Exchange
 import lib.config as config
 import datetime
 import time
+import pandas as pd
 
 period_matching = {
 	'1m': 1,
@@ -130,14 +131,24 @@ class Bot:
 	def backtest(self, start_date, end_date):
 		self.exchange.init_fake_balance()
 		self.data.reset()
+		price = []
+		date = []
 		data = self.exchange.get_data(start_date, end_date, self.ticker, self.period_text)
 		if (data.shape[0] == 0):
 			self.logger.log("❌", "No data for the given time frame")
 		for i in range(self.periods_needed, data.shape[0]):
 			batch = data.iloc[i - self.periods_needed:i]
 			self.exchange.fake_current_price = batch.iloc[-1]['close']
+			self.exchange.fake_current_date = batch.iloc[-1]['date']
+			price.append(batch.iloc[-1]['close'])
+			date.append(batch.iloc[-1]['date'])
 			self.compute(batch.copy())
-		return (self.exchange.fake_balance, self.exchange.fake_pnl)
+		hist = pd.DataFrame()
+		hist['date'] = date
+		hist['price'] = price
+		for order in self.exchange.fake_orders:
+			hist.loc[hist['date'] == order['date'], 'action'] = order['action']
+		return (self.exchange.fake_balance, self.exchange.fake_pnl, hist)
 
 	def setup(self):
 		"""To implement. Set the bot variable, instantiate classes... This will be done once before the bot

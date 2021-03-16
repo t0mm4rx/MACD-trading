@@ -5,6 +5,7 @@ import numpy as np
 import time
 import traceback
 from datetime import datetime
+from lib.Data import Data
 
 class Exchange:
 	"""This class is used to interact with the market. It's a wrapper for a ccxt exchange object.
@@ -28,6 +29,12 @@ class Exchange:
 		self.fake_balance = []
 		self.fake_pnl = []
 		self.fake_current_price = None
+		self.fake_current_date = None
+		self.fake_orders = []
+		if (self.default_period and self.default_ticker):
+			self.cache = Data(f"{self.default_period}-{''.join(self.default_ticker.split('/'))}-cache")
+		else:
+			self.cache = None
 		self.client = ccxt.binance(config.get_creds()['binance'])
 
 	def candles_to_df(self, candles):
@@ -72,6 +79,8 @@ class Exchange:
 			ticker = self.default_ticker
 		if (period is None):
 			period = self.default_period
+		if (not self.cache is None and not self.cache.get(f"{start_date}-{end_date}") is None):
+			return self.cache.get(f"{start_date}-{end_date}")
 		start = self.client.parse8601(start_date)
 		end = self.client.parse8601(end_date)
 
@@ -86,7 +95,10 @@ class Exchange:
 				candles = np.vstack([candles, new_candles])
 			last_date = int(candles[-1][0])
 			time.sleep(1)
-		return self.candles_to_df(candles)
+		df = self.candles_to_df(candles)
+		if (not self.cache is None):
+			self.cache.set(f"{start_date}-{end_date}", df)
+		return df
 
 	def buy(self, ticker=None, max_try=3):
 		"""Buy the given ticker.
@@ -162,8 +174,11 @@ class Exchange:
 		It's called automatically by the backtracking algorithm, you shouldn't
 		have to use it.
 		"""
-		print(f"Buy @{self.fake_current_price}")
 		self.data.set("buy_price", self.fake_current_price)
+		self.fake_orders.append({
+			'action': 'buy',
+			'date': self.fake_current_date
+		})
 
 	def fake_sell(self, ticker):
 		"""This functions creates a fake sell order.
@@ -172,17 +187,17 @@ class Exchange:
 		have to use it.
 		It will calculate estimated PNL for the trade.
 		"""
-		print(f"Sell @{self.fake_current_price}")
-		print(f"Previous buy @{self.data.get('buy_price')}")
 		diff_cost = self.fake_current_price - self.data.get("buy_price")
 		diff_per = (diff_cost / self.data.get("buy_price")) * 100
 		diff_per -= 0.2
-		print(f"Diff_percentage: {diff_per}")
 		profit = self.fake_balance[-1] * (diff_per / 100)
-		print(f"Profit: {profit}")
 		self.fake_balance.append(self.fake_balance[-1] + profit)
 		self.fake_pnl.append(diff_per)
 		self.data.remove("buy_price")
+		self.fake_orders.append({
+			'action': 'sell',
+			'date': self.fake_current_date
+		})
 
 	def get_balance(self, asset=None):
 		"""Get the balance of the account for the given asset.
@@ -205,3 +220,4 @@ class Exchange:
 		"""
 		self.fake_balance = [100]
 		self.fake_pnl = []
+		self.fake_orders = []
