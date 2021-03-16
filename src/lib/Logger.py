@@ -14,6 +14,7 @@ class Logger:
 		"""Connect to the DB, create the table if it doesn't exist yet.
 
 		- name: string, the name of the bot which will be logging
+		- live_mode: bool, should we log information to the DB or are we running in test mode
 		"""
 		self.name = name
 		self.live_mode = live_mode

@@ -51,3 +51,6 @@ class Data:
 		data = self.get_data()
 		data.pop(key)
 		pickle.dump(data, open(self.file, "wb+"))
+
+	def reset(self):
+		pickle.dump({}, open(self.file, "wb+"))

@@ -1,4 +1,5 @@
 from lib.Bot import Bot
+import matplotlib.pyplot as plt
 
 class MACD(Bot):
 
@@ -39,19 +40,20 @@ class MACD(Bot):
 			'sell_signal': should_sell
 		})
 
+		# fig, ax1 = plt.subplots()
+		# ax2 = ax1.twinx()
+		# ax1.plot(candles['date'], candles['close'])
+		# ax2.plot(candles['date'], candles['macd'])
+		# ax2.plot(candles['date'], candles['macd9'])
+		# plt.show()
+
+		# print(should_buy, should_sell)
+
 		# Buy or sell if the decision is
 		if (should_buy and not self.data.get("open_position") and self.config['active']):
 			self.data.set("open_position", True)
-			self.data.set("buy_balance", self.exchange.get_balance())
 			self.exchange.buy()
 
 		if (should_sell and self.data.get("open_position") and self.config['active']):
 			self.data.set("open_position", False)
 			self.exchange.sell()
-			balance_diff = self.exchange.get_balance() - self.data.get("buy_balance")
-			self.logger.pnl(
-				balance_diff / self.data.get("buy_balance"),
-				balance_diff
-			)
-			self.logger.balance(self.exchange.get_balance())
-			self.data.remove("buy_balance")

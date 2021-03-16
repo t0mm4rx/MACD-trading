@@ -49,12 +49,13 @@ class Bot:
 	When live_mode is False, the logger won't log to the DB, and the exchange actions will be simulated.
 	"""
 
-	def __init__(self, name, ticker, period, live_mode, periods_needed=None):
+	def __init__(self, name, ticker, period, live_mode, periods_needed=200):
 		"""
 		- name: string, the name of the bot
 		- ticker: string, the ticker formatted like that: ASSET1/ASSET2
-		- period: string, the period on which the loop will be set, and the resolution of the candles.
-		- periods_needed: int, the number of candles you will get every loop.
+		- period: string, the period on which the loop will be set, and the resolution of the candles
+		- live_mode: bool, should we launch the live loop and start trading live
+		- periods_needed: int, the number of candles you will get every loop, optional
 		"""
 		self.live_mode = live_mode
 		self.name = name
@@ -74,8 +75,11 @@ class Bot:
 		except:
 			print("❌ Cannot connect to the log DB, are you sure it's running?")
 			raise
-		self.data = Data(self.name)
-		self.exchange = Exchange(self.logger, self.config['capitalAllowed'], live_mode, self.ticker, self.period_text)
+		if (self.live_mode):
+			self.data = Data(self.name)
+		else:
+			self.data = Data(self.name + "-test")
+		self.exchange = Exchange(self.logger, self.data, self.config['capitalAllowed'], live_mode, self.ticker, self.period_text)
 		try:
 			self.period = period_matching[period]
 		except:
@@ -122,6 +126,18 @@ class Bot:
 			self.logger.price(data.iloc[-1]['close'])
 			self.compute(data)
 			time.sleep(self.offset_seconds + self.period * 60 - datetime.datetime.now().second)
+
+	def backtest(self, start_date, end_date):
+		self.exchange.init_fake_balance()
+		self.data.reset()
+		data = self.exchange.get_data(start_date, end_date, self.ticker, self.period_text)
+		if (data.shape[0] == 0):
+			self.logger.log("❌", "No data for the given time frame")
+		for i in range(self.periods_needed, data.shape[0]):
+			batch = data.iloc[i - self.periods_needed:i]
+			self.exchange.fake_current_price = batch.iloc[-1]['close']
+			self.compute(batch.copy())
+		return (self.exchange.fake_balance, self.exchange.fake_pnl)
 
 	def setup(self):
 		"""To implement. Set the bot variable, instantiate classes... This will be done once before the bot
