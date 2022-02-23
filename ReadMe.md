@@ -3,6 +3,8 @@
 > ⚠️ This code is directly connected to your exchange and your wallet. It deals with real money.
 >
 > ⚠️ This program is in progress. I strongly advise you to not run this for now.
+> 
+> ⚠️ This strategy is shit, it won't make money, for educational purpose only
 
 This project is a bot trading Bitcoin using a really simple strategy.
 
